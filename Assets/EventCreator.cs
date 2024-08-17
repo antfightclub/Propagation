@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EventCreator
+public class EventCreator : MonoBehaviour
 {
     
 }

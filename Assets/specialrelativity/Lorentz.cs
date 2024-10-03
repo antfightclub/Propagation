@@ -54,6 +54,11 @@ namespace SpecialRelativity
             if(lorentzianNorm <  0) { return Likeness.TimeLike;  }
             return Likeness.None;
         }
+
+        // next implement boost matrix and rotation matrix
+        // then proper time and lorentz covariant velocity
+        // then rest frame
+        // then drawing the world
     
     }
 

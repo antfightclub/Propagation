@@ -2,6 +2,7 @@ using System;
 using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using JetBrains.Annotations;
 
 namespace SpecialRelativity
 {
@@ -131,7 +132,66 @@ namespace SpecialRelativity
 
         //https://github.com/Unity-Technologies/UnityCsReference/blob/master/Runtime/Export/Math/Matrix4x4.cs
         //public override int GetHashCode()? (line 166)
-        //
+        
+        // public override bool Equals(object other)? (line 173)
+
+        // public bool Equals(Matrix44 other) (line 181)
+
+        // public static Matrix44 operator*(Matrix44 lhs, MAtrix44 rhs)? (line 190)
+
+        // public static Vector4 operator*(Matrix44 lhs, Vector4 vector)? (line 217)
+
+        // public static bool operator==(Matrix44 lhs, Matrix44 rhs)? (line 228)
+
+        // public static bool operator!=(Matrix44 lhs, Matrix44 rhs)? (line 238)
+
+        // Column get and set
+        public Vector4 GetColumn(int index)
+        {
+            switch (index)
+            {
+                case 0: return new Vector4(m00, m10, m20, m30);
+                case 1: return new Vector4(m01, m11, m21, m31);
+                case 2: return new Vector4(m02, m12, m22, m32);
+                case 3: return new Vector4(m03, m13, m23, m33);
+                default: throw new IndexOutOfRangeException("Invalid column index! :3");
+            }
+        }
+        
+        // !!!! wxyz instead of default unity matrix4x4 which is xyzw for some godforsaken reason
+        public void SetColumn(int index, Vector4 column)
+        {
+            this[0, index] = column.w;
+            this[1, index] = column.x;
+            this[2, index] = column.y;
+            this[3, index] = column.w;
+        }
+
+        // GetRow()
+        public Vector4 GetRow(int index)
+        {
+            switch (index)
+            {
+                case 0: return new Vector4(m00, m01, m02, m03);
+                case 1: return new Vector4(m10, m11, m12, m13);
+                case 2: return new Vector4(m20, m21, m22, m23);
+                case 3: return new Vector4(m30, m31, m32, m33);
+                default:
+                    throw new IndexOutOfRangeException("Invalid row index! :3");
+            }
+        }
+
+        public void SetRow(int index, Vector4 row)
+        {
+            this[index, 0] = row.w;
+            this[index, 1] = row.x;
+            this[index, 2] = row.y;
+            this[index, 3] = row.z;
+        }
+
+
+        // SetRow()
+
 
 
 

@@ -130,8 +130,10 @@ namespace SpecialRelativity
             }
         }
 
-        //https://github.com/Unity-Technologies/UnityCsReference/blob/master/Runtime/Export/Math/Matrix4x4.cs
-        //public override int GetHashCode()? (line 166)
+        // various methods in the matrix4x4 implementation in Unity 
+        // https://github.com/Unity-Technologies/UnityCsReference/blob/master/Runtime/Export/Math/Matrix4x4.cs
+        
+        // public override int GetHashCode()? (line 166)
         
         // public override bool Equals(object other)? (line 173)
 
@@ -144,6 +146,8 @@ namespace SpecialRelativity
         // public static bool operator==(Matrix44 lhs, Matrix44 rhs)? (line 228)
 
         // public static bool operator!=(Matrix44 lhs, Matrix44 rhs)? (line 238)
+
+
 
         // Column get and set
         public Vector4 GetColumn(int index)
@@ -167,7 +171,7 @@ namespace SpecialRelativity
             this[3, index] = column.w;
         }
 
-        // GetRow()
+        // row get and set
         public Vector4 GetRow(int index)
         {
             switch (index)
@@ -190,7 +194,15 @@ namespace SpecialRelativity
         }
 
 
-        // SetRow()
+
+        // use the metric eta to write the Lorentzian inner product conveniently
+        // it is unrigorously a diagonal matrix where the first diagonal element is -1 and the rest are 1
+        static readonly Matrix44 etaMetric = new Matrix44(
+            new Vector4(-1, 0, 0, 0),
+            new Vector4( 0, 1, 0, 0),
+            new Vector4( 0, 0, 1, 0),
+            new Vector4( 0, 0, 0, 1));
+        public static Matrix44 eta { get { return etaMetric; } }
 
 
 

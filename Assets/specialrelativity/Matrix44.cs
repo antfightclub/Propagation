@@ -202,12 +202,24 @@ namespace SpecialRelativity
             new Vector4( 0, 1, 0, 0),
             new Vector4( 0, 0, 1, 0),
             new Vector4( 0, 0, 0, 1));
+
+        // Returns the eta metric as described en Sogebu et al (https://arxiv.org/pdf/1703.07063)
         public static Matrix44 eta { get { return etaMetric; } }
 
 
+        static readonly Matrix44 identityMatrix = new Matrix44(
+            new Vector4(1, 0, 0, 0),
+            new Vector4(0, 1, 0, 0),
+            new Vector4(0, 0, 1, 0),
+            new Vector4(0, 0, 0, 1));
 
+        // Returns the ordinary 4-dimensional identity matrix 
+        public static Matrix44 identity { get { return identityMatrix; } }
 
-
+        // Implement multiplying Matrix44 by Matrix44
+        // Implement multiplying Vector4 by Matrix44
+        // and variations depending on need
+        // Implement multiplying a Vector4 by a float value
 
 
     }

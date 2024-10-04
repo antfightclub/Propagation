@@ -29,10 +29,10 @@ namespace SpecialRelativity
         public Vector4 GetResist(float b)
         {
             return new Vector4(
-                0.0f, 
-                -this.U.x*b,
-                -this.U.y*b,
-                -this.U.z*b);
+                0.0f,
+                -this.U.x * b,
+                -this.U.y * b,
+                -this.U.z * b);
         }
 
         // I think I need to rethink some of the code from sogebu et al
@@ -49,11 +49,12 @@ namespace SpecialRelativity
             L = L.Lorentz(neg);
             Vector4 accel = L.get_transform(acceleration);
             float r = accel.x * accel.x + accel.y * accel.y + accel.z * accel.z;
-            if (r>10.0)
-            { this.U  += new Vector4(
-                accel.x * (ds*10.0f/r),
-                accel.y * (ds*10.0f/r),
-                accel.z * (ds*10.0f/r)); 
+            if (r > 10.0)
+            {
+                this.U += new Vector4(
+                accel.x * (ds * 10.0f / r),
+                accel.y * (ds * 10.0f / r),
+                accel.z * (ds * 10.0f / r));
             }
             else
             {
@@ -66,3 +67,4 @@ namespace SpecialRelativity
             return this.U;
         }
     }
+}

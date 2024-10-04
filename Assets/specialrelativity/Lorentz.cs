@@ -160,13 +160,26 @@ namespace SpecialRelativity
             return gamma;
         }
         
+
+
         // then rest frame
 
-        public Vector4 TransformToRest(Vector4 vel)
+        /*public Vector4 LorentzTransformToRestFrame(Vector4 vel)
         {
+            float beta_x = vel.x / c_lightspeed;
+            float beta_y = vel.y / c_lightspeed;
+            float beta_z = vel.z / c_lightspeed;
+            float v_norm = (beta_x * beta_x + beta_y * beta_y + beta_z * beta_z);
             float gamma = LorentzGammaFactor(vel);
-            
-        }
+            return new Matrix44(
+                new Vector4(gamma),
+                new Vector4(),
+                new Vector4(),
+                new Vector4());
+        }*/
+
+
+
         // then drawing the world
 
     }

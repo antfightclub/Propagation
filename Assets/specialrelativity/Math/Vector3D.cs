@@ -9,7 +9,13 @@ namespace SpecialRelativity
     {
         double x, y, z;
 
-        Vector3D(double x, double y, double z)
+        /// <summary>
+        /// Constructor for Vector3D
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        public Vector3D(double x, double y, double z)
         {
             this.x = x;
             this.y = y;

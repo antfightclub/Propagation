@@ -1,8 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEngine.UIElements;
 using System;
+using Extensions;
 
 namespace SpecialRelativity
 {
@@ -71,28 +70,90 @@ namespace SpecialRelativity
         }
 
         /// <summary>
-        ///  Returns u^hat = u / |a|, where |a| is the square   known as a vector with a hat
+        ///  Normalize u with its norm |u|
         /// </summary>
-        /// <returns>Vector3D</returns>
-        public Vector3D GetHat()
+        /// <returns>Vector3D; Returns u^hat = u / |u|, where |u| is the norm if u is greater than 0. If u is of length 0 (with 8 digits of precision) return (1.0d, 0.0d, 0.0d)</returns>
+        public Vector3D Hat()
         {
             double r = this.x * this.x + this.y * this.y + this.z * this.z;
-            if (r == 0)
+            if (r.Equals8DigitPrecision(0.0d))
             {
-
+                return new Vector3D(1.0d, 0.0d, 1.0d);
             }
             r = 1.0d / Math.Sqrt(r);
             return new Vector3D(this.x*r, this.y*r, this.z*r);
         }
 
         /// <summary>
-        /// Squashes a vector 
+        /// Normalize u with 1
         /// </summary>
-        /// <returns></returns>
-        public Vector3D Hat()
+        /// <returns>Vector3D; returns normalized Vector3D if length is not 0. If length is equal to zero (within 8 digits of precision) return (0.0d, 0.0d, 0.0d)</returns>
+        public Vector3D Normalize()
         {
-
+            double r = this.x * this.x + this.y * this.y + this.z * this.z;
+            if (r.Equals8DigitPrecision(0.0d))
+            {
+                return new Vector3D(0.0d, 0.0d, 0.0d);
+            }
+            r = 1.0d / Math.Sqrt(r);
+            return new Vector3D(this.x * r, this.y * r, this.z * r);
         }
 
+        /// <summary>
+        /// Square root of the scalar product
+        /// </summary>
+        /// <returns>double; sqrt(x*x + y*y + z*z)</returns>
+        public double Length()  { return Math.Sqrt(this.x * this.x + this.y * this.y + this.z * this.z); }
+        /// <summary>
+        /// scalar product
+        /// </summary>
+        /// <returns>double; x*x + y*y + z*z</returns>
+        public double SquaredLength() { return this.x*this.x + this.y*this.y + this.z*this.z; }
+
+        /// <summary>
+        /// Computes distance from caller to vector v
+        /// </summary>
+        /// <param name="v"></param>
+        /// <returns>double; Square root of the scalar product of the difference vector of this - v</returns>
+        public double DistanceTo(Vector3D v)
+        {
+            double x, y, z;
+            x = this.x - v.x;
+            y = this.y - v.y;
+            z = this.z - v.z;
+            return Math.Sqrt(x * x + y * y + z * z);
+        }
+
+        /// <summary>
+        /// Computes distance squared from caller to vector 4
+        /// </summary>
+        /// <param name="v"></param>
+        /// <returns>double; scalar product of the difference vector of this - v</returns>
+        public double DistanceToSquared(Vector3D v)
+        {
+            double x, y, z;
+            x = this.x - v.x;
+            y = this.y - v.y;
+            z = this.z - v.z;
+            return x * x + y * y + z * z;
+        }
+
+        /// <summary>
+        /// Compute the dot product of caller and v
+        /// </summary>
+        /// <param name="v"></param>
+        /// <returns>double; dot product of this and v</returns>
+        public double Dot(Vector3D v)   { return this.x * v.x + this.y * v.y + this.z * v.z;  }
+
+        /// <summary>
+        /// Compute the cross product of caller and v
+        /// </summary>
+        /// <param name="v"></param>
+        /// <returns>Vector3D; cross product between elements of 3-vector</returns>
+        public Vector3D Cross(Vector3D v)   {   return new Vector3D(
+                                                        this.x * v.z - v.y * this.z,
+                                                        this.z * v.x - v.z * this.x,
+                                                        this.x * v.y - v.x * this.y); }
+        
     }
 }

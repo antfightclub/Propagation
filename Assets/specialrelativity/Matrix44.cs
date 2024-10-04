@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using JetBrains.Annotations;
+using Unity.VisualScripting;
 
 namespace SpecialRelativity
 {
@@ -194,9 +195,18 @@ namespace SpecialRelativity
         }
 
 
+        static readonly Matrix44 zeroMatrix = new Matrix44(
+            new Vector4(0, 0, 0, 0),
+            new Vector4(0, 0, 0, 0),
+            new Vector4(0, 0, 0, 0),
+            new Vector4(0, 0, 0, 0));
+
+        public static Matrix44 zero { get { return zeroMatrix; } }
+
 
         // use the metric eta to write the Lorentzian inner product conveniently
         // it is unrigorously a diagonal matrix where the first diagonal element is -1 and the rest are 1
+        // .... Do I need to define Vector4 using explicitly 0f???
         static readonly Matrix44 etaMetric = new Matrix44(
             new Vector4(-1, 0, 0, 0),
             new Vector4( 0, 1, 0, 0),
@@ -221,6 +231,49 @@ namespace SpecialRelativity
         // and variations depending on need
         // Implement multiplying a Vector4 by a float value
 
+
+        public Matrix44 Lorentz(Vector4 u)
+        {
+            Matrix44 m = Matrix44.zero;
+            float x, y, z, x2, y2, z2, r, g, xy, yz, zx;
+            x = u.x; y = u.y; z = u.z;
+            x2 = x * x; y2 = y * y; z2 = z * z;
+            r = x2 + y2 + z2;
+
+            if (r > 0.0) 
+            {
+                g = MathF.Sqrt(1.0f + r);
+                r = 1.0f / r;
+                xy = (g - 1.0f) * x * y * r;
+                yz = (g - 1.0f) * y * z * r;
+                zx = (g - 1.0f) * z * x * r;
+                m.m00 =  g;     m.m01 =                     -x;     m.m02 =                     -y;     m.m03 =                     -z;
+                m.m10 = -x;     m.m11 = (g * x2 + y2 + z2) * r;     m.m12 =                     xy;     m.m13 =                     zx;
+                m.m20 = -y;     m.m21 =                     xy;     m.m22 = (x2 + g * y2 + z2) * r;     m.m23 =                     yz;
+                m.m30 = -z;     m.m31 =                     zx;     m.m32 =                     yz;     m.m33 = (x2 + y2 + g * z2) * r;
+            }
+
+            else
+            {
+                m.m00 = 1.0f;   m.m01 = 0.0f;   m.m02 = 0.0f;   m.m03 = 0.0f;
+                m.m10 = 0.0f;   m.m11 = 1.0f;   m.m12 = 0.0f;   m.m13 = 0.0f;
+                m.m20 = 0.0f;   m.m12 = 0.0f;   m.m22 = 1.0f;   m.m23 = 0.0f;
+                m.m30 = 0.0f;   m.m13 = 0.0f;   m.m32 = 0.0f;   m.m33 = 1.0f;
+            }
+            return m;
+        }
+
+        public Vector4 get_transform(Vector4 v)
+        {
+            float w, x, y, z, ww, xx, yy, zz;
+            w = v.w; x = v.x; y = v.y; z = v.z;
+
+            ww = this.m00 * w + this.m01 * x + this.m02 * y + this.m03 * z;
+            xx = this.m10 * w + this.m11 * x + this.m12 * y + this.m13 * z;
+            yy = this.m20 * w + this.m21 * x + this.m22 * y + this.m23 * z;
+            zz = this.m30 * w + this.m31 * x + this.m32 * y + this.m33 * z;
+            return new Vector4(ww, xx, yy, zz);
+        }
 
     }
 

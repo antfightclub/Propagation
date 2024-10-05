@@ -55,7 +55,18 @@ namespace SpecialRelativity
             this.m00 = column0.t;   this.m01 = column1.t;   this.m02 = column2.t;   this.m03 = column3.t;
             this.m10 = column0.x;   this.m11 = column1.x;   this.m12 = column2.x;   this.m13 = column3.x;
             this.m20 = column0.y;   this.m21 = column1.y;   this.m22 = column2.y;   this.m23 = column3.y;
-            this.m20 = column0.z;   this.m31 = column1.z;   this.m32 = column2.z;   this.m33 = column3.z;
+            this.m30 = column0.z;   this.m31 = column1.z;   this.m32 = column2.z;   this.m33 = column3.z;
+        }
+        
+        /// <summary>
+        /// If no arguments are given, return zero matrix
+        /// </summary>
+        public Matrix44()
+        {
+            this.m00 = 0.0d;    this.m01 = 0.0d;    this.m02 = 0.0d;    this.m03 = 0.0d;
+            this.m10 = 0.0d;    this.m11 = 0.0d;    this.m12 = 0.0d;    this.m13 = 0.0d;
+            this.m20 = 0.0d;    this.m21 = 0.0d;    this.m22 = 0.0d;    this.m23 = 0.0d;
+            this.m30 = 0.0d;    this.m31 = 0.0d;    this.m32 = 0.0d;    this.m33 = 0.0d;
         }
 
         public double this[int row, int column]
@@ -193,6 +204,59 @@ namespace SpecialRelativity
             this[index, 2] = row.y;
             this[index, 3] = row.z;
         }
+
+
+        // Unsure what unit angle is in. 
+        // TODO: Ensure that the units of angle correspond to sogebu et al - find out what units are used in the python code and find out whether it is mismatched for Math.Cos()
+        public Matrix44 XRotation(double angle)
+        {
+            double cos_a = Math.Cos(angle);
+            double sin_a = Math.Sin(angle);
+            Matrix44 m = new Matrix44();
+            m.m00 = 1.0d; m.m01 = 0.0d; m.m02 = 0.0d; m.m03 = 0.0d;
+            m.m10 = 0.0d; m.m11 = 1.0d; m.m12 = 0.0d; m.m13 = 0.0d;
+            m.m20 = 0.0d; m.m21 = 0.0d; m.m22 = cos_a; m.m23 = -sin_a;
+            m.m30 = 0.0d; m.m31 = 0.0d; m.m32 = sin_a; m.m33 = cos_a;
+            return m;
+        }
+
+        public Matrix44 YRotation(double angle)
+        {
+            double cos_a = Math.Cos(angle);
+            double sin_a = Math.Sin(angle);
+            Matrix44 m = new Matrix44();
+            m.m00 = 1.0d; m.m01 = 0.0d; m.m02 = 0.0d; m.m03 = 0.0d;
+            m.m10 = 0.0d; m.m11 = cos_a; m.m12 = 0.0d; m.m13 = sin_a;
+            m.m20 = 0.0d; m.m21 = 0.0d; m.m22 = 1.0d; m.m23 = 0.0d;
+            m.m30 = 0.0d; m.m31 = -sin_a; m.m32 = 0.0d; m.m33 = cos_a;
+            return m;
+        }
+
+        public Matrix44 ZRotation(double angle)
+        {
+            double cos_a = Math.Cos(angle);
+            double sin_a = Math.Cos(angle);
+            Matrix44 m = new Matrix44();
+            m.m00 = 1.0d; m.m01 = 0.0d; m.m02 = 0.0d; m.m03 = 0.0d;
+            m.m10 = 0.0d; m.m11 = cos_a; m.m12 = -sin_a; m.m13 = 0.0d;
+            m.m20 = 0.0d; m.m21 = sin_a; m.m22 = cos_a; m.m23 = 0.0d;
+            m.m30 = 0.0d; m.m31 = 0.0d; m.m32 = 0.0d; m.m33 = 1.0d;
+            return m;
+        }
+
+        public Matrix44 Scale(double scale)
+        {
+            Matrix44 m = new Matrix44();
+            m.m00 = 0.0d; m.m01 = 0.0d; m.m02 = 0.0d; m.m03 = 0.0d;
+            m.m10 = 0.0d; m.m11 = 0.0d; m.m12 = 0.0d; m.m13 = 0.0d;
+            m.m20 = 0.0d; m.m21 = 0.0d; m.m22 = 0.0d; m.m23 = 0.0d;
+            m.m30 = 0.0d; m.m31 = 0.0d; m.m32 = 0.0d; m.m33 = 0.0d;
+            return m;
+        }
+
+
+
+
 
 
         static readonly Matrix44 zeroMatrix = new Matrix44(

@@ -23,7 +23,7 @@ namespace SpecialRelativity
             this.z = z;
         }
 
-        public double GetW() { return this.t; }
+        public double GetT() { return this.t; }
         public double GetX() { return this.x; }
         public double GetY() { return this.y; }
         public double GetZ() { return this.z; }
@@ -33,7 +33,15 @@ namespace SpecialRelativity
         public void SetY(double y) { this.y = y; }
         public void SetZ(double z) { this.z = z; }
 
+        /// <summary>
+        /// Get the spatial (x, y, z) components of Vector4D as Vector3D
+        /// </summary>
+        /// <returns></returns>
         public Vector3D Get3D() { return new Vector3D(this.x, this.y, this.z); }
+        /// <summary>
+        /// Set the spatial (x, y, z) component of a Vector4D with a Vector3D
+        /// </summary>
+        /// <param name="v"></param>
         public void Set3D(Vector3D v) { this.x = v.GetX(); this.y = v.GetY(); this.z = v.GetZ();  }
 
         // Define basic operators with doubles in vector
@@ -85,7 +93,8 @@ namespace SpecialRelativity
         }
 
         /// <summary>
-        /// 
+        /// Get the vector length of the spatial component (x,y,z) of a Vector4D
+        /// as Sqrt(xx + yy + zz) (compared to coordinate system origin!)
         /// </summary>
         /// <returns></returns>
         public double Length()
@@ -93,12 +102,21 @@ namespace SpecialRelativity
             return Math.Sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
         }
 
+        /// <summary>
+        /// Get the vector length squared of the spatial component (x, y, z) of a Vector4D 
+        /// as (xx + yy + zz)
+        /// </summary>
+        /// <returns></returns>
         public double LengthSquared()
         {
             return this.x * this.x + this.y * this.y + this.z * this.z;
         }
 
-        
+        /// <summary>
+        /// Get a number (distance) in 3D between spatial components of self and v
+        /// </summary>
+        /// <param name="v"></param>
+        /// <returns>double</returns>
         public double DistanceTo(Vector4D v)
         {
             double x, y, z;
@@ -108,6 +126,11 @@ namespace SpecialRelativity
             return Math.Sqrt(x * x + y * y + z * z);
         }
 
+        /// <summary>
+        /// Get a number (distance squared) in 3D between spatial components of self and v
+        /// </summary>
+        /// <param name="v"></param>
+        /// <returns></returns>
         public double DistanceToSquared(Vector4D v)
         {
             double x, y, z;
@@ -118,20 +141,29 @@ namespace SpecialRelativity
 
         }
 
+        /// <summary>
+        /// Get the dot product of caller and v
+        /// </summary>
+        /// <param name="v"></param>
+        /// <returns>double</returns>
         public double Dot(Vector4D v)
         {
             return this.x * v.x + this.y * v.y + this.z * v.z;
         }
 
+        /// <summary>
+        /// Get gamma (lorentz factor) of the spatial components. If vector is 0 length it returns 1.0d
+        /// </summary>
+        /// <returns></returns>
         public double GetGamma()
         {
             return Math.Sqrt(1.0d + this.x * this.x + this.y * this.y + this.z * this.z);
         }
 
         /// <summary>
-        /// Lorentzian inner product!
+        /// Get the lorentzian inner product between self and v
         /// </summary>
-        /// <returns></returns>
+        /// <returns>double</returns>
         public double InnerProduct(Vector4D v)
         {
             return Math.Sqrt(this.x * v.x + this.y * v.y + this.z * v.z - this.t * v.t);
@@ -145,6 +177,11 @@ namespace SpecialRelativity
             return this.x * this.x + this.y * this.y + this.z * this.z - this.t * this.t;
         }
 
+        /// <summary>
+        /// Lorentzian squared norm between self and v
+        /// </summary>
+        /// <param name="v"></param>
+        /// <returns></returns>
         public double SquaredNormTo(Vector4D v)
         {
             double t, x, y, z;
@@ -155,28 +192,43 @@ namespace SpecialRelativity
             return x * x + y * y + z * z - t * t;
         }
 
-        public Vector3D Hat()
+        // TODO: Should implement "length" instead of "1.0d" for flexibility. OBS: more of these methods neeed this in Vector3D.cs and Vector4D.cs!
+        /// <summary>
+        /// Normalizes the spatial component of self to 1.0d. If length of self Vector4D is 0, return 
+        /// </summary>
+        /// <returns>Vector3D</returns>
+        public Vector3D Hat(double length = 1.0d)
         {
             double r = this.x * this.x + this.y * this.y + this.z * this.z;
             if (r.Equals8DigitPrecision(0.0d))
             {
-                return new Vector3D(1.0d, 0.0d, 0.0d);
+                return new Vector3D(length, 0.0d, 0.0d);
             }
-            r = 1.0d / Math.Sqrt(r);
+            r = length / Math.Sqrt(r);
             return new Vector3D(this.x * r, this.y * r, this.z * r);
         }
 
-        public Vector4D Normalize()
+        /// <summary>
+        /// Normalizes the spatial component of self to 1.0d. 
+        /// </summary>
+        /// <returns>Vector4D</returns>
+        public Vector4D Normalize(double length = 1.0d)
         {
             double r = this.x * this.x + this.y * this.y + this.z * this.z;
             if (r.Equals8DigitPrecision(0.0d))
             {
                 return new Vector4D(this.t, 0.0d, 0.0d, 0.0d);
             }
-            r = 1.0d / Math.Sqrt(r);
+            r = length / Math.Sqrt(r);
             return new Vector4D(this.t, this.x*r, this.y*r, this.z*r);
         }
 
+        /// <summary>
+        /// Returns a Vector4D (this + s * N)
+        /// </summary>
+        /// <param name="N"></param>
+        /// <param name="s"></param>
+        /// <returns>Vector4D</returns>
         public Vector4D GetLinearAdd(Vector4D N, double s)
         {
             double tt, xx, yy, zz;
@@ -188,11 +240,11 @@ namespace SpecialRelativity
         }
 
         /// <summary>
-        /// s must be between 0 and 1
+        /// s must be between 0 and 1. equation is (1-s)*this + s * othr
         /// </summary>
         /// <param name="v"></param>
         /// <param name="s"></param>
-        /// <returns></returns>
+        /// <returns>Vector4D</returns>
         public Vector4D GetDivPoint(Vector4D v, double s)
         {
             if(s>0 && s<1)

@@ -6,7 +6,7 @@ namespace SpecialRelativity
 {
     public class Vector4D
     {
-        double t, x, y, z;
+        public double t, x, y, z;
 
         /// <summary>
         /// Constructor for Vector4D
@@ -15,7 +15,7 @@ namespace SpecialRelativity
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <param name="z"></param>
-        Vector4D(double t, double x, double y, double z)
+        public Vector4D(double t, double x, double y, double z)
         {
             this.t = t;
             this.x = x;

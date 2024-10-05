@@ -7,7 +7,7 @@ namespace SpecialRelativity
 {
     public class Vector3D
     {
-        double x, y, z;
+        public double x, y, z;
 
         /// <summary>
         /// Constructor for Vector3D

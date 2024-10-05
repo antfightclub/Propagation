@@ -287,7 +287,43 @@ namespace SpecialRelativity
             return m;
         }
 
+        /// <summary>
+        /// Returns the inverse of a Matrix44 that is a 3D rotation by transposing its 3D rotation part
+        /// </summary>
+        /// <returns></returns>
+        public Matrix44 GetInverseRot()
+        {
+            Matrix44 m = new Matrix44();
+            m.m00 = this.m00;   m.m01 = this.m01;   m.m02 = this.m02;   m.m03 = this.m03;
+            m.m10 = this.m10;   m.m11 = this.m11;   m.m12 = this.m21;   m.m13 = this.m31;
+            m.m20 = this.m20;   m.m21 = this.m12;   m.m22 = this.m22;   m.m23 = this.m32;
+            m.m30 = this.m30;   m.m31 = this.m13;   m.m23 = this.m23;   m.m33 = this.m33;
+            return m;
+        }
 
+        /// <summary>
+        /// Let M bet the 3D rotation part of self. This method returns M*v 
+        /// </summary>
+        /// <returns></returns>
+        public Vector3D GetRotate(Vector3D v)
+        {
+            double xx, yy, zz;
+            xx = this.m11 * v.x + this.m12 * v.y + this.m13 * v.z;
+            yy = this.m21 * v.x + this.m22 * v.y + this.m23 * v.z;
+            zz = this.m31 * v.x + this.m32 * v.y + this.m33 * v.z;
+            return new Vector3D(xx, yy, zz);
+        }
+
+        public Vector4D GetTransform(Vector4D v)
+        {
+            double t, x, y, z, tt, xx, yy, zz;
+            t = v.t; x = v.x; y = v.y; z = v.z;
+            tt = this.m00 * t + this.m01 * x + this.m02 * y + this.m03 * z;
+            xx = this.m10 * t + this.m11 * x + this.m12 * y + this.m13 * z;
+            yy = this.m20 * t + this.m21 * x + this.m22 * y + this.m23 * z;
+            zz = this.m30 * t + this.m31 * x + this.m32 * y + this.m33 * z;
+            return new Vector4D(tt, xx, yy, zz);
+        }
 
 
         static readonly Matrix44 zeroMatrix = new Matrix44(
@@ -358,19 +394,6 @@ namespace SpecialRelativity
             return m;
         }
 
-        public Vector4D get_transform(Vector4D v)
-        {
-            double w, x, y, z, ww, xx, yy, zz;
-            w = v.t; x = v.x; y = v.y; z = v.z;
-
-            ww = this.m00 * w + this.m01 * x + this.m02 * y + this.m03 * z;
-            xx = this.m10 * w + this.m11 * x + this.m12 * y + this.m13 * z;
-            yy = this.m20 * w + this.m21 * x + this.m22 * y + this.m23 * z;
-            zz = this.m30 * w + this.m31 * x + this.m32 * y + this.m33 * z;
-            return new Vector4D(ww, xx, yy, zz);
-        }
-
     }
-
 
 }

@@ -76,25 +76,25 @@ namespace SpecialRelativity
         }
 
         /// <summary>
-        ///  Normalize u with its norm |u|
+        ///  Gets the normalized Vector3D of u with its own length |u|
         /// </summary>
-        /// <returns>Vector3D; Returns u^hat = u / |u|, where |u| is the norm if u is greater than 0. If u is of length 0 (with 8 digits of precision) return (1.0d, 0.0d, 0.0d)</returns>
-        public Vector3D Hat()
+        /// <returns>Vector3D; Returns u^hat = u / |u|, where |u| is the norm if u is greater than 0. If u is of length 0 (with 8 digits of precision) return (length, 0.0d, 0.0d)</returns>
+        public Vector3D GetHat(double length = 1.0d)
         {
             double r = this.x * this.x + this.y * this.y + this.z * this.z;
             if (r.Equals8DigitPrecision(0.0d))
             {
-                return new Vector3D(1.0d, 0.0d, 1.0d);
+                return new Vector3D(length, 0.0d, 1.0d);
             }
-            r = 1.0d / Math.Sqrt(r);
+            r = length / Math.Sqrt(r);
             return new Vector3D(this.x*r, this.y*r, this.z*r);
         }
 
         /// <summary>
-        /// Normalize u with 1
+        /// Gets the normalized Vector3D u to "length"
         /// </summary>
         /// <returns>Vector3D; returns normalized Vector3D if length is not 0. If length is equal to zero (within 8 digits of precision) return (0.0d, 0.0d, 0.0d)</returns>
-        public Vector3D Normalize()
+        public Vector3D GetNormalize(double length = 1.0d)
         {
             double r = this.x * this.x + this.y * this.y + this.z * this.z;
             if (r.Equals8DigitPrecision(0.0d))

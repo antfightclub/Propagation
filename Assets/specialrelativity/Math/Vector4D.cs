@@ -194,10 +194,11 @@ namespace SpecialRelativity
 
         // TODO: Should implement "length" instead of "1.0d" for flexibility. OBS: more of these methods neeed this in Vector3D.cs and Vector4D.cs!
         /// <summary>
-        /// Normalizes the spatial component of self to 1.0d. If length of self Vector4D is 0, return 
+        /// Normalizes the spatial component of self to length. If length of self Vector4D is 0, 
+        /// return instead Vector3D(length, 0, 0)
         /// </summary>
         /// <returns>Vector3D</returns>
-        public Vector3D Hat(double length = 1.0d)
+        public Vector3D GetHat(double length = 1.0d)
         {
             double r = this.x * this.x + this.y * this.y + this.z * this.z;
             if (r.Equals8DigitPrecision(0.0d))
@@ -209,10 +210,10 @@ namespace SpecialRelativity
         }
 
         /// <summary>
-        /// Normalizes the spatial component of self to 1.0d. 
+        /// Gets the normalized spatial component of self vector to length
         /// </summary>
         /// <returns>Vector4D</returns>
-        public Vector4D Normalize(double length = 1.0d)
+        public Vector4D GetNormalize(double length = 1.0d)
         {
             double r = this.x * this.x + this.y * this.y + this.z * this.z;
             if (r.Equals8DigitPrecision(0.0d))

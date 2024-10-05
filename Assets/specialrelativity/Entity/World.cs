@@ -8,13 +8,14 @@ namespace SpecialRelativity
         // !!! Note
         // Idea:
         // Have a staggered frame of reference (change spatial index coords to change star system, for example) 
-        // 
+        // One could even do smth like how minecraft nether corresponds to overworld
+        // e.g. transform between double-based coordinate systems in a cosmic distance ladder type deal
         public struct StaggeredReference
         {
-            public Vector4D pos()
+            /*public Vector4D pos()
             {
-
-            }
+                
+            }*/
 
             public double t;
             public double x;

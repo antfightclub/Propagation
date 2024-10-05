@@ -23,36 +23,42 @@ namespace SpecialRelativity
         }
 
         /// <summary>
-        /// Get the x component of a Vector3D
+        /// Returns the x component of self
         /// </summary>
         /// <returns>double</returns>
         public double GetX() { return this.x; }
+
         /// <summary>
-        /// Get the y component of a Vector3D
+        /// Returns the y component of self
         /// </summary>
         /// <returns>double</returns>
         public double GetY() { return this.y; }
+
         /// <summary>
-        /// Get the z component of a Vector3D
+        /// Returns the z component of self
         /// </summary>
         /// <returns>double</returns>
         public double GetZ() { return this.z; }
 
+
         /// <summary>
-        /// Set the x component of a Vector3D
+        /// Set the x component of self
         /// </summary>
         /// <param name="x"></param>
         public void SetX(double x) { this.x = x; }
+
         /// <summary>
-        /// Set the y component of a Vector3D
+        /// Set the y component of self
         /// </summary>
         /// <param name="y"></param>
         public void SetY(double y) { this.y = y; }
+
         /// <summary>
-        /// Set the z component of a Vector3D
+        /// Set the z component of self
         /// </summary>
         /// <param name="z"></param>
         public void SetZ(double z) { this.z = z; }
+
 
         // Define basic operators with doubles in vector
         public static Vector3D operator +(Vector3D a, Vector3D b)   { return new Vector3D(a.x + b.x, a.y + b.y, a.z + b.z); }   // Vector sum
@@ -61,6 +67,7 @@ namespace SpecialRelativity
         public static Vector3D operator *(Vector3D a, Vector3D b)   { return new Vector3D(a.x - b.x, a.y - b.y, a.z - b.z); }   // Scalar product
         public static Vector3D operator /(Vector3D a, double rhs)   { rhs = 1.0d / rhs; return new Vector3D(a.x * rhs, a.y * rhs, a.z * rhs); }   // Divide each vector component by a scalar (double)
 
+        
         // Methods to calculate various properties of 3-vectors
         
         /// <summary>
@@ -110,6 +117,7 @@ namespace SpecialRelativity
         /// </summary>
         /// <returns>double; sqrt(x*x + y*y + z*z)</returns>
         public double Length()  { return Math.Sqrt(this.x * this.x + this.y * this.y + this.z * this.z); }
+        
         /// <summary>
         /// scalar product
         /// </summary>

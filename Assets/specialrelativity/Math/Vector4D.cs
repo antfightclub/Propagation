@@ -23,15 +23,56 @@ namespace SpecialRelativity
             this.z = z;
         }
 
+        /// <summary>
+        /// Returns the t component of self
+        /// </summary>
+        /// <returns></returns>
         public double GetT() { return this.t; }
+
+        /// <summary>
+        /// Returns the x component of self
+        /// </summary>
+        /// <returns></returns>
         public double GetX() { return this.x; }
+
+        /// <summary>
+        /// Returns the y component of self
+        /// </summary>
+        /// <returns></returns>
         public double GetY() { return this.y; }
+
+        /// <summary>
+        /// Returns the z component of self
+        /// </summary>
+        /// <returns></returns>
         public double GetZ() { return this.z; }
 
+
+        /// <summary>
+        /// Set the t component of self
+        /// </summary>
+        /// <param name="t"></param>
         public void SetT(double t) { this.t = t; }
+
+        /// <summary>
+        /// Set the x component of self
+        /// </summary>
+        /// <param name="x"></param>
         public void SetX(double x) { this.x = x; }
+
+        /// <summary>
+        /// Set the y component of self
+        /// </summary>
+        /// <param name="y"></param>
         public void SetY(double y) { this.y = y; }
+
+        /// <summary>
+        /// Set the z component of self
+        /// </summary>
+        /// <param name="z"></param>
         public void SetZ(double z) { this.z = z; }
+
+
 
         /// <summary>
         /// Get the spatial (x, y, z) components of Vector4D as Vector3D

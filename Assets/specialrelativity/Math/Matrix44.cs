@@ -59,7 +59,7 @@ namespace SpecialRelativity
         }
         
         /// <summary>
-        /// If no arguments are given, return zero matrix
+        /// If no arguments are given, return zero matrix, otherwise takes four Vector4D column vectors
         /// </summary>
         public Matrix44()
         {
@@ -82,7 +82,12 @@ namespace SpecialRelativity
             }
         }
         
-        // Access element at sequential index (0..15 inclusive)
+        /// <summary>
+        /// Access element at sequential index (0..15 inclusive)
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        /// <exception cref="IndexOutOfRangeException"></exception>
         public double this[int index]
         {
             get
@@ -162,6 +167,12 @@ namespace SpecialRelativity
 
 
         // Column get and set
+        /// <summary>
+        /// Returns column vector of index in {0, 1, 2, 3}
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        /// <exception cref="IndexOutOfRangeException"></exception>
         public Vector4D GetColumn(int index)
         {
             switch (index)
@@ -175,15 +186,26 @@ namespace SpecialRelativity
         }
         
         // !!!! txyz instead of default unity matrix4x4 which is xyzw for some godforsaken reason
-        public void SetColumn(int index, Vector4 column)
+        /// <summary>
+        /// Sets the column vector of index in {0, 1, 2, 3}
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="column"></param>
+        public void SetColumn(int index, Vector4D column)
         {
-            this[0, index] = column.w;
+            this[0, index] = column.t;
             this[1, index] = column.x;
             this[2, index] = column.y;
-            this[3, index] = column.w;
+            this[3, index] = column.z;
         }
 
         // row get and set
+        /// <summary>
+        /// Returns the row of index in {0, 1, 2, 3} as a vector4D
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        /// <exception cref="IndexOutOfRangeException"></exception>
         public Vector4D GetRow(int index)
         {
             switch (index)
@@ -197,17 +219,25 @@ namespace SpecialRelativity
             }
         }
 
-        public void SetRow(int index, Vector4 row)
+        /// <summary>
+        /// Sets the row of index in {0, 1, 2, 3} with values in a Vector4D
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="row"></param>
+        public void SetRow(int index, Vector4D row)
         {
-            this[index, 0] = row.w;
+            this[index, 0] = row.t;
             this[index, 1] = row.x;
             this[index, 2] = row.y;
             this[index, 3] = row.z;
         }
 
-
-        // Unsure what unit angle is in. 
-        // TODO: Ensure that the units of angle correspond to sogebu et al - find out what units are used in the python code and find out whether it is mismatched for Math.Cos()
+        /// <summary>
+        /// Let M be the spatial part of Matrix44. This method rotates M with angle in the X axis.
+        /// Angle is given in radians.
+        /// </summary>
+        /// <param name="angle"></param>
+        /// <returns>Matrix44 where the spatial part is rotated by angle in the X axis</returns>
         public Matrix44 XRotation(double angle)
         {
             double cos_a = Math.Cos(angle);
@@ -220,6 +250,12 @@ namespace SpecialRelativity
             return m;
         }
 
+        /// <summary>
+        /// Let M be the spatial part of Matrix44. This method rotates M with angle in the Y axis.
+        /// Angle is given in radians.
+        /// </summary>
+        /// <param name="angle"></param>
+        /// <returns>Matrix44 where the spatial part is rotated by angle in the Y axis</returns>
         public Matrix44 YRotation(double angle)
         {
             double cos_a = Math.Cos(angle);
@@ -232,6 +268,12 @@ namespace SpecialRelativity
             return m;
         }
 
+        /// <summary>
+        /// Let M be the spatial part of Matrix44. This method rotates M with angle in the Z axis.
+        /// Angle is given in radians.
+        /// </summary>
+        /// <param name="angle"></param>
+        /// <returns>Matrix44 where the spatial part is rotated by angle in the Z axis</returns>
         public Matrix44 ZRotation(double angle)
         {
             double cos_a = Math.Cos(angle);
@@ -244,13 +286,18 @@ namespace SpecialRelativity
             return m;
         }
 
+        /// <summary>
+        /// Let M be the spatial part of Matrix44. This method returns a scaling matrix, leaving the first diagonal (t component) as 1.0d.
+        /// </summary>
+        /// <param name="scale"></param>
+        /// <returns>Diagonal Matrix44 where the 0th diagonal is 1.0d, and the diagonals 1..3 are set to scale </returns>
         public Matrix44 Scale(double scale)
         {
             Matrix44 m = new Matrix44();
-            m.m00 = 0.0d; m.m01 = 0.0d; m.m02 = 0.0d; m.m03 = 0.0d;
-            m.m10 = 0.0d; m.m11 = 0.0d; m.m12 = 0.0d; m.m13 = 0.0d;
-            m.m20 = 0.0d; m.m21 = 0.0d; m.m22 = 0.0d; m.m23 = 0.0d;
-            m.m30 = 0.0d; m.m31 = 0.0d; m.m32 = 0.0d; m.m33 = 0.0d;
+            m.m00 = 1.0d; m.m01 =  0.0d; m.m02 =  0.0d; m.m03 =  0.0d;
+            m.m10 = 0.0d; m.m11 = scale; m.m12 =  0.0d; m.m13 =  0.0d;
+            m.m20 = 0.0d; m.m21 =  0.0d; m.m22 = scale; m.m23 =  0.0d;
+            m.m30 = 0.0d; m.m31 =  0.0d; m.m32 =  0.0d; m.m33 = scale;
             return m;
         }
 
@@ -332,7 +379,7 @@ namespace SpecialRelativity
             new Vector4D(0, 0, 0, 0),
             new Vector4D(0, 0, 0, 0));
 
-        public static Matrix44 zero { get { return zeroMatrix; } }
+        public static Matrix44 Zero { get { return zeroMatrix; } }
 
 
         // use the metric eta to write the Lorentzian inner product conveniently
@@ -345,7 +392,7 @@ namespace SpecialRelativity
             new Vector4D( 0, 0, 0, 1));
 
         // Returns the eta metric as described en Sogebu et al (https://arxiv.org/pdf/1703.07063)
-        public static Matrix44 eta { get { return etaMetric; } }
+        public static Matrix44 Eta { get { return etaMetric; } }
 
 
         static readonly Matrix44 identityMatrix = new Matrix44(
@@ -363,9 +410,14 @@ namespace SpecialRelativity
         // Implement multiplying a Vector4 by a float value
 
 
+        /// <summary>
+        /// This method returns the lorentz transform of a Vector4D
+        /// </summary>
+        /// <param name="u"></param>
+        /// <returns>Matrix44</returns>
         public Matrix44 Lorentz(Vector4D u)
         {
-            Matrix44 m = Matrix44.zero;
+            Matrix44 m = Matrix44.Zero;
             double x, y, z, x2, y2, z2, r, g, xy, yz, zx;
             x = u.x; y = u.y; z = u.z;
             x2 = x * x; y2 = y * y; z2 = z * z;
@@ -374,7 +426,7 @@ namespace SpecialRelativity
             if (r > 0.0) 
             {
                 g = Math.Sqrt(1.0d + r);
-                r = 1.0f / r;
+                r = 1.0d / r;
                 xy = (g - 1.0d) * x * y * r;
                 yz = (g - 1.0d) * y * z * r;
                 zx = (g - 1.0d) * z * x * r;

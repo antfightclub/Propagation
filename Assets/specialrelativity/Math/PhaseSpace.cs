@@ -45,9 +45,9 @@ namespace SpecialRelativity
             this.X.z = this.X.z + this.U.z * ds;
             acceleration.w = 0.0f;
             Vector4 neg = new Vector4(-U.w, -U.x, -U.y, -U.z);
-            Matrix44 L = Matrix44.zero;
+            Matrix44 L = Matrix44.Zero;
             L = L.Lorentz(neg);
-            Vector4 accel = L.get_transform(acceleration);
+            Vector4 accel = L.GetTransform(acceleration);
             float r = accel.x * accel.x + accel.y * accel.y + accel.z * accel.z;
             if (r > 10.0)
             {

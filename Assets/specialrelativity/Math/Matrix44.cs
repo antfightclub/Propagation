@@ -399,7 +399,7 @@ namespace SpecialRelativity
             new Vector4D(0, 0, 0, 1));
 
         // Returns the ordinary 4-dimensional identity matrix 
-        public static Matrix44 identity { get { return identityMatrix; } }
+        public static Matrix44 Identity { get { return identityMatrix; } }
 
         // Implement multiplying Matrix44 by Matrix44
         // Implement multiplying Vector4 by Matrix44

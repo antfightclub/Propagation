@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace SpecialRelativity
@@ -17,8 +16,8 @@ namespace SpecialRelativity
     public class Worldline
     {
         public int n;
-        public List<Vector4> line;
-        public List<Vector4> state;
+        public List<Vector4D> line;
+        public List<Vector4D> state;
         public Dictionary<int, int> ix_map;
         public int last;
 

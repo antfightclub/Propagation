@@ -12,8 +12,8 @@ namespace SpecialRelativity
         double Time;
         WorldLine Worldline;
 
-
-        void Init(World world, Vector4D pos)
+        // commented out for now 
+        /*void Init(World world, Vector4D pos)
         {
             this.World = world;
             this.P = new PhaseSpace(pos, new Vector4D(1.0d, 0.0d, 0.0d, 0.0d));
@@ -22,8 +22,8 @@ namespace SpecialRelativity
             PhaseSpace start = this.P.Copy();
             start.X.t = 0.0d;
             this.Worldline = WorldLine(start);
-            this.Worldline.Add(this.P);
-        }
+           this.Worldline.Add(this.P);
+        }*/
 
 
     }

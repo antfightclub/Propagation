@@ -9,6 +9,17 @@ namespace SpecialRelativity
         public double t, x, y, z;
 
         /// <summary>
+        /// zero-parameter constructor, returns a Vector4D with [t=1.0d, x=0.0d, y=0.0d, z=0.0d]
+        /// </summary>
+        public Vector4D()
+        {
+            this.t = 1.0d;
+            this.x = 0.0d;
+            this.y = 0.0d;
+            this.z = 0.0d;
+        }
+
+        /// <summary>
         /// Constructor for Vector4D
         /// </summary>
         /// <param name="t"></param>
@@ -21,6 +32,31 @@ namespace SpecialRelativity
             this.x = x;
             this.y = y;
             this.z = z;
+        }
+        
+        /// <summary>
+        /// Constructor of Vector4D that takes a double t and a Vector3D
+        /// </summary>
+        /// <returns></returns>
+        public Vector4D(double t, Vector3D v)
+        {
+            this.t = t;
+            this.x = v.x;
+            this.y = v.y;
+            this.z = v.z;
+        }
+        
+        /// <summary>
+        /// Return a copy of caller
+        /// </summary>
+        /// <returns>Vector4D</returns>
+        public Vector4D Copy()
+        {
+            return new Vector4D(
+                this.t,
+                this.x,
+                this.y,
+                this.z);
         }
 
         /// <summary>

@@ -124,7 +124,6 @@ namespace SpecialRelativity
 
         public static Quat operator *(Quat a, Quat b)
         {
-            double t, x, y, z;
             Quat q = new Quat();
             q._t = a._t * b._t - a._x * b._x - a._y * b._y - a._z * b._z;
             q._x = a._t * b._x + a._x * b._t + a._y * b._z - a._z * b._y;
@@ -139,7 +138,7 @@ namespace SpecialRelativity
             double b = q._t * q._t + q._x * q._x + q._y * q._y + q._z * q._z;
             double c = this._t * q._t + this._x * q._x + this._y * q._y + this._z * q._z;
             double l = Math.Sqrt(a*b*1.0000005d);
-            double w = Math.Acos(c / 1.0d);
+            double w = Math.Acos(c / l);
             double sinw =  Math.Sin(w);
             if (sinw.Equals8DigitPrecision(0.0d))
             {

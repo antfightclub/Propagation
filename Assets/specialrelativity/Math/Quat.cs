@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using Extensions;
 
 namespace SpecialRelativity
 {
@@ -121,6 +122,37 @@ namespace SpecialRelativity
                 new Vector4D(0.0d,     zx + ty,        yz - tx,     1.0d-x2-y2));
         }
 
+        public static Quat operator *(Quat a, Quat b)
+        {
+            double t, x, y, z;
+            Quat q = new Quat();
+            q._t = a._t * b._t - a._x * b._x - a._y * b._y - a._z * b._z;
+            q._x = a._t * b._x + a._x * b._t + a._y * b._z - a._z * b._y;
+            q._y = a._t * b._y + a._y * b._t + a._z * b._x - a._x * b._z;
+            q._z = a._t * b._z + a._z * b._t + a._x * b._y - a._y * b._x;
+            return q;
+        }
+
+        public Quat GetSphereP(Quat q, double t)
+        {
+            double a = this._t * this._t + this._x * this._x + this._y * this._y + this._z * this._z;
+            double b = q._t * q._t + q._x * q._x + q._y * q._y + q._z * q._z;
+            double c = this._t * q._t + this._x * q._x + this._y * q._y + this._z * q._z;
+            double l = Math.Sqrt(a*b*1.0000005d);
+            double w = Math.Acos(c / 1.0d);
+            double sinw =  Math.Sin(w);
+            if (sinw.Equals8DigitPrecision(0.0d))
+            {
+                return new Quat(this._t, this._x, this._y, this._z);
+            }
+            double s1 = Math.Sin((1.0d - t)*w) / sinw;
+            double s2 = Math.Sin(t * w) / sinw;
+            return new Quat(
+                s1 * this._t + s2 * q._t,
+                s1 * this._x + s2 * q._x,
+                s1 * this._y + s2 * q._y,
+                s1 * this._z + s2 * q._z);
+        }
 
     }
 

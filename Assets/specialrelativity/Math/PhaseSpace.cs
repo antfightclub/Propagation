@@ -7,6 +7,8 @@ namespace SpecialRelativity
     {
         public Vector4D X; public Vector4D U;
 
+        // This is not really needed; the new PhaseSpace(Vector4D X, Vector4D U) constructor would be used to initialize anyways.
+        // Artifact of transliterating Python syntax...
         void Init(Vector4D X, Vector4D U)
         {
             this.X = new Vector4D(X.t, X.x, X.y, X.z);

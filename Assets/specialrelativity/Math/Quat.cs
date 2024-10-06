@@ -102,6 +102,25 @@ namespace SpecialRelativity
             return v;
         }
 
+        public Matrix44 GetRotMat()
+        {
+            double x2, y2, z2, tx, ty, tz, xy, yz, zx;
+            x2 = 2.0d * this._x * this._x;
+            y2 = 2.0d * this._y * this._y;
+            z2 = 2.0d * this._z * this._z;
+            tx = 2.0d * this._t * this._x;
+            ty = 2.0d * this._t * this._y;
+            tz = 2.0d * this._t * this._z;
+            xy = 2.0d * this._x * this._y;
+            yz = 2.0d * this._y * this._z;
+            zx = 2.0d * this._z * this._x;
+            return new Matrix44(
+                new Vector4D(1.0d,        0.0d,           0.0d,           0.0d),
+                new Vector4D(0.0d,  1.0d-y2-z2,        xy + tz,        zx - ty),
+                new Vector4D(0.0d,     xy - tz,     1.0d-z2-x2,        yz + tx),
+                new Vector4D(0.0d,     zx + ty,        yz - tx,     1.0d-x2-y2));
+        }
+
 
     }
 

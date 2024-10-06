@@ -438,10 +438,10 @@ namespace SpecialRelativity
 
             else
             {
-                m.m00 = 1.0f;   m.m01 = 0.0f;   m.m02 = 0.0f;   m.m03 = 0.0f;
-                m.m10 = 0.0f;   m.m11 = 1.0f;   m.m12 = 0.0f;   m.m13 = 0.0f;
-                m.m20 = 0.0f;   m.m12 = 0.0f;   m.m22 = 1.0f;   m.m23 = 0.0f;
-                m.m30 = 0.0f;   m.m13 = 0.0f;   m.m32 = 0.0f;   m.m33 = 1.0f;
+                m.m00 = 1.0d;   m.m01 = 0.0d;   m.m02 = 0.0d;   m.m03 = 0.0d;
+                m.m10 = 0.0d;   m.m11 = 1.0d;   m.m12 = 0.0d;   m.m13 = 0.0d;
+                m.m20 = 0.0d;   m.m12 = 0.0d;   m.m22 = 1.0d;   m.m23 = 0.0d;
+                m.m30 = 0.0d;   m.m13 = 0.0d;   m.m32 = 0.0d;   m.m33 = 1.0d;
             }
             return m;
         }

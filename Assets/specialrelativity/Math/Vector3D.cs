@@ -68,6 +68,19 @@ namespace SpecialRelativity
         public static Vector3D operator /(Vector3D a, double rhs)   { rhs = 1.0d / rhs; return new Vector3D(a.x * rhs, a.y * rhs, a.z * rhs); }   // Divide each vector component by a scalar (double)
 
         
+        /// <summary>
+        /// Returns a UnityEngine.Vector3 by explicitly casting to float.
+        /// Probably unstable above values of 10k.
+        /// </summary>
+        /// <returns></returns>
+        public Vector3 ToUnityVec3()
+        {
+            return new Vector3(
+                (float)this.x, 
+                (float)this.y, 
+                (float)this.z);
+        }
+
         // Methods to calculate various properties of 3-vectors
         
         /// <summary>

@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using UnityEngine;
 
 namespace SpecialRelativity
@@ -10,23 +11,21 @@ namespace SpecialRelativity
         // Have a staggered frame of reference (change spatial index coords to change star system, for example) 
         // One could even do smth like how minecraft nether corresponds to overworld
         // e.g. transform between double-based coordinate systems in a cosmic distance ladder type deal
-        public struct StaggeredReference
+
+        public class CoordinateSystems
         {
-            /*public Vector4D pos()
+            public double local_subdiv_size = 9_999.0d;
+
+            public double c = 299_792_458.0d; // meters per second
+
+            public Vector3 ToLocalSpace_Unity(Vector3D v)
             {
-                
-            }*/
-
-            public double t;
-            public double x;
-            public double y;
-            public double z;
-
-            public int spatialindex; 
+                double l_x = (v.x * c) % local_subdiv_size;
+                double l_y = (v.y * c) % local_subdiv_size;
+                double l_z = (v.z * c) % local_subdiv_size;
+                return new Vector3((float)l_x, (float)l_y, (float)l_z);
+            }
             
-            // OR have another Vector4D - this spatialindex acts sort of as the "nether", and the local coordinates (radius of the oort cloud) are sort of slid over the more general larger spanning coordinate space
-            // This probably needs to be an established early design desicion
-
         }
         
 

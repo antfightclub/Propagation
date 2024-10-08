@@ -34,6 +34,8 @@ namespace SpecialRelativity
     !!!!!!!! GONNA NEED TO FIGURE OUT WHAT THE PYTHON CODE OF SOGEBU DOES
     !!!!!!!! CHECK WITH THE LITERATURE AS WELL
     !!!!!!!! THEN FIGURE OUT HOW TO IMPLEMENT THE SYSTEM IN CSHARP?
+    update: I think it's mostly just a matter of every object having a worldline which is stored in its own context.
+    When, say, "player" needs to calculate stuff on an object's worldline, the worldline itself is the list of 4-vectors
     */
     public class WorldLine
     {

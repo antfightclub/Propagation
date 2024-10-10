@@ -21,14 +21,14 @@ namespace SpecialRelativity
         
         // small theta
         // TODO: DOES NOT CHECK FOR QUADRANT
-        public double GetZenithAngle(Vector4D xi) // xi referring to the small greek letter
+        public static double GetZenithAngle(Vector4D xi) // xi referring to the small greek letter
         {
             return Math.Atan(Math.Sqrt(xi.x * xi.x + xi.y * xi.y) / xi.z);
         }
 
         // small phi
         // TODO: DOES NOT CHECK FOR QUADRANT
-        public double GetAzimuthAngle(Vector4D xi) // xi referring to the small greek letter
+        public static double GetAzimuthAngle(Vector4D xi) // xi referring to the small greek letter
         {
             return Math.Atan(xi.y / xi.x);
         }
@@ -51,19 +51,19 @@ namespace SpecialRelativity
                 R * Math.Cos(THETA));
         }
 
-        public float CoordSFromPhi(double phi)
+        public static float CoordSFromPhi(double phi)
         {
             float S = (float)phi / 2 * (float)Constants.PI;
             return S;
         }
 
-        public float CoordTFromTheta(double theta)
+        public static float CoordTFromTheta(double theta)
         {
             float T = 1 - ((float)theta / (float)Constants.PI);
             return T;
         }
 
-        public Vector2 GetST(Vector4D PlayerPos, Vector4D ObjectPos)
+        public static Vector2 GetST(Vector4D PlayerPos, Vector4D ObjectPos)
         {
             double theta = GetZenithAngle(ObjectPos);
             double phi = GetAzimuthAngle(ObjectPos);

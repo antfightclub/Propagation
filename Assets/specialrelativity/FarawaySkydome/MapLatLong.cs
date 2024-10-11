@@ -23,14 +23,15 @@ namespace SpecialRelativity
         // TODO: DOES NOT CHECK FOR QUADRANT. WONDERING IF IT IS A PROBLEM.
         public static double GetZenithAngle(Vector4D xi) // xi referring to the small greek letter
         {
-            return Math.Atan(Math.Sqrt(xi.x * xi.x + xi.y * xi.y) / xi.z);
+            return Math.Atan2(xi.x, xi.z);
         }
 
         // small phi
         // TODO: DOES NOT CHECK FOR QUADRANT. WONDERING IF IT IS A PROBLEM.
         public static double GetAzimuthAngle(Vector4D xi) // xi referring to the small greek letter
         {
-            return Math.Atan(xi.y / xi.x);
+            var xzLen = new Vector2((float)xi.x, (float)xi.z).magnitude;
+            return Math.Atan2(-xi.y, xzLen);
         }
 
         public Vector4D SmallXiFromAnglesAndDist(double r, double theta, double phi)

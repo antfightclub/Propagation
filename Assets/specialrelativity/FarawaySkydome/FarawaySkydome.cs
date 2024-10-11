@@ -16,12 +16,6 @@ public class FarawaySkydome : MonoBehaviour
     int sizex = 256;
     int sizey = 256;
 
-    [SerializeField]
-    double pos_x;
-    [SerializeField]
-    double pos_y;
-    [SerializeField]
-    double pos_z;
 
     Vector4D origin = new Vector4D(0.0d, 0.0d, 0.0d, 0.0d);
 
@@ -35,9 +29,9 @@ public class FarawaySkydome : MonoBehaviour
         texture = new Texture2D(sizex, sizey);
         renderer = GetComponent<Renderer>();
         renderer.material.mainTexture = texture;
-        for(int i = 0; i < 256; i++)
+        for(int i = 0; i < sizex; i++)
         {
-            for(int j = 0; j < 256; j++)
+            for(int j = 0; j < sizey; j++)
             {
                 texture.SetPixel(i, j, new Color(0.0f, 0.0f, 0.0f));
             }
@@ -48,12 +42,14 @@ public class FarawaySkydome : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector4D pos = UpdatePos();
-        Vector2 star = MapLatLong.GetST(origin, pos);
-        UpdateTexture(star);
+        //Vector4D pos = UpdatePos();
+        //var celestialObjects = CelestialObjectController.Instances;
+        //Vector2 star = MapLatLong.GetST(origin, pos);
+        UpdateTexture();
+        texture.Apply(true, false);
     }
 
-    public void UpdateTexture(Vector2 star)
+    public void UpdateTexture()
     {
         // Make texture all the way black first
         for (int i = 0; i < 256; i++)
@@ -63,24 +59,27 @@ public class FarawaySkydome : MonoBehaviour
                 texture.SetPixel(i, j, new Color(0.0f, 0.0f, 0.0f));
             }
         }
+
+        var celestialObjects = CelestialObjectController.Instances;
+        foreach (var trans in celestialObjects)
+        {
+            Vector3 vec3 = trans.transform.position;
+            Vector4D vec4d = new Vector4D(1.0d, (double)vec3.x, (double)vec3.y, (double)vec3.z);
+            Vector2 texturePos = MapLatLong.GetST(origin, vec4d);
+            int S = Mathf.FloorToInt(texturePos.x * sizex);
+            int T = Mathf.FloorToInt(texturePos.y * sizey);
+            texture.SetPixel(S, T, Color.white);
+        }
         
         // Multiply by size and get the floor to convert to integer index... hopefully
-        int S = Mathf.FloorToInt(star.x * sizex);
-        int T = Mathf.FloorToInt(star.y * sizex);
+       // int S = Mathf.FloorToInt(star.x * sizex);
+        //int T = Mathf.FloorToInt(star.y * sizex);
         // Set the pixel to white
-        texture.SetPixel(S, T, Color.white);
+        
         // send it off to the GPU
-        texture.Apply(true, false);
+        //texture.Apply(true, false);
     }
 
-    Vector4D UpdatePos()
-    {
-        return new Vector4D(
-            0.0d,
-            this.pos_x,
-            this.pos_y,
-            this.pos_z);
-    }
 
     public Vector3 RaycastToSphere_Simple(Vector3 origin, Vector3 end, Vector3 sphereCenter, float sphereRadius)
     {

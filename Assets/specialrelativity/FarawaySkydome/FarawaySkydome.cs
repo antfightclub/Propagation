@@ -13,9 +13,10 @@ public class FarawaySkydome : MonoBehaviour
     // trigonometry there; should be much faster than to get all object positions, put all those object
     // positions in a CPU texture, and then push that CPU texture to the GPU every frame.
 
-    int sizex = 256;
-    int sizey = 256;
+    int sizex = 512;
+    int sizey = 512;
 
+    //UnityEngine.Logger logger = null;
 
     Vector4D origin = new Vector4D(0.0d, 0.0d, 0.0d, 0.0d);
 
@@ -37,6 +38,9 @@ public class FarawaySkydome : MonoBehaviour
             }
         }
         texture.Apply(true, false);
+
+        //logger = new UnityEngine.Logger();
+
     }
 
     // Update is called once per frame
@@ -46,30 +50,38 @@ public class FarawaySkydome : MonoBehaviour
         //var celestialObjects = CelestialObjectController.Instances;
         //Vector2 star = MapLatLong.GetST(origin, pos);
         UpdateTexture();
+        DrawTempTexture();
         texture.Apply(true, false);
     }
 
     public void UpdateTexture()
     {
         // Make texture all the way black first
-        for (int i = 0; i < 256; i++)
+        /*for (int i = 0; i < sizex; i++)
         {
-            for (int j = 0; j < 256; j++)
+            for (int j = 0; j < sizey; j++)
             {
                 texture.SetPixel(i, j, new Color(0.0f, 0.0f, 0.0f));
             }
-        }
-
+        }*/
+        
+        
+        //Debug.Log("------ CELESTIAL OBJECTS ------");
+        int iter = 0;
         var celestialObjects = CelestialObjectController.Instances;
         foreach (var trans in celestialObjects)
         {
-            Vector3 vec3 = trans.transform.position;
+            //Debug.Log("Object no. " + iter + " is called " + trans.gameObject.name);
+            Vector3 vec3 = trans.Trans.transform.position;
             Vector4D vec4d = new Vector4D(1.0d, (double)vec3.x, (double)vec3.y, (double)vec3.z);
             Vector2 texturePos = MapLatLong.GetST(origin, vec4d);
             int S = Mathf.FloorToInt(texturePos.x * sizex);
             int T = Mathf.FloorToInt(texturePos.y * sizey);
-            texture.SetPixel(S, T, Color.white);
+            texture.SetPixel(T, S, Color.white);
+            iter++;
         }
+
+        //Debug.Log("------ END CELESTIAL OBJECTS LIST -------");
         
         // Multiply by size and get the floor to convert to integer index... hopefully
        // int S = Mathf.FloorToInt(star.x * sizex);
@@ -80,6 +92,15 @@ public class FarawaySkydome : MonoBehaviour
         //texture.Apply(true, false);
     }
 
+
+    private void DrawTempTexture()
+    {
+        for (int i  = 0; i < sizex; i++)
+        {
+            texture.SetPixel( i, i, Color.white);
+            texture.SetPixel(-i, i, Color.white);
+        }
+    }
 
     public Vector3 RaycastToSphere_Simple(Vector3 origin, Vector3 end, Vector3 sphereCenter, float sphereRadius)
     {

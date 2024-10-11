@@ -23,7 +23,7 @@ namespace SpecialRelativity
         // TODO: DOES NOT CHECK FOR QUADRANT. WONDERING IF IT IS A PROBLEM.
         public static double GetZenithAngle(Vector4D xi) // xi referring to the small greek letter
         {
-            return Math.Atan2(xi.x, xi.z);
+            return Math.Atan2(xi.x, xi.z) / Constants.PI;
         }
 
         // small phi

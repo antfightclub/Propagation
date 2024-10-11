@@ -20,14 +20,14 @@ namespace SpecialRelativity
         public Vector2 TextureCoordinate;
         
         // small theta
-        // TODO: DOES NOT CHECK FOR QUADRANT
+        // TODO: DOES NOT CHECK FOR QUADRANT. WONDERING IF IT IS A PROBLEM.
         public static double GetZenithAngle(Vector4D xi) // xi referring to the small greek letter
         {
             return Math.Atan(Math.Sqrt(xi.x * xi.x + xi.y * xi.y) / xi.z);
         }
 
         // small phi
-        // TODO: DOES NOT CHECK FOR QUADRANT
+        // TODO: DOES NOT CHECK FOR QUADRANT. WONDERING IF IT IS A PROBLEM.
         public static double GetAzimuthAngle(Vector4D xi) // xi referring to the small greek letter
         {
             return Math.Atan(xi.y / xi.x);

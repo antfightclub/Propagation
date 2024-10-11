@@ -5,6 +5,14 @@ using UnityEngine.Rendering.HighDefinition;
 
 public class FarawaySkydome : MonoBehaviour
 {
+
+    // Should now build a way to encapsulate the world's objects so that this script can iterate over them
+    // truthfully this might end up being more efficient if using Unity DOTS / an ECS dogma, but for now
+    // in prototyping it is *probably* gonna be fine to just iterate swiftly. Could all this in truth
+    // be done in shader code? I wonder if I can keep all object positions in VRAM and just perform the
+    // trigonometry there; should be much faster than to get all object positions, put all those object
+    // positions in a CPU texture, and then push that CPU texture to the GPU every frame.
+
     int sizex = 256;
     int sizey = 256;
 

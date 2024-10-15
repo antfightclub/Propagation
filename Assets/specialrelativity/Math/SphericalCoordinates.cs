@@ -1,18 +1,17 @@
 using UnityEngine;
 using System;
+using Unity.VisualScripting;
+using Palmmedia.ReportGenerator.Core.CodeAnalysis;
 
 namespace SpecialRelativity
 {
     public class SphericalCoordinates
     {
-        public class SphericalCoordinatesSingle
+        public class SphericalCoordsSingle
         {
-            public struct coords_single
-            {
-                float rho;
-                float theta;
-                float phi;
-            }
+            float rho;
+            float theta;
+            float phi;
 
             public static float GetTheta(Vector3 v)
             {
@@ -25,9 +24,35 @@ namespace SpecialRelativity
                 return Mathf.Atan2(-v.y, xzLen);
             }
 
+            public static float GetMagnitude(Vector3 v)
+            {
+                return Mathf.Sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
+            }
+
+            public static float GetSquareMagnitude(Vector3 v)
+            {
+                return v.x * v.x + v.y * v.y + v.z * v.z;
+            }
+
+            public static float GetR(float rho, float phi)
+            {
+                return rho * Mathf.Sin(phi);                
+            }
+
+            public static float ConvertRectToSpherical(Vector3 v)
+            {
+                throw new NotImplementedException();
+            }
+
+            public static float ConvertSphericalToRect(float rho, float theta, float phi)
+            {
+                throw new NotImplementedException();
+            }
+
+
         }
 
-        public class SphericalCoordinatesDouble
+        public class SphericalCoordsDouble
         {
             public struct coords_double
             {

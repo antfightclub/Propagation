@@ -72,6 +72,30 @@ namespace SpecialRelativity
                 return Math.Atan2(-v.y, xzLen);
             }
 
+            public static double GetMagnitude(Vector3D v)
+            {
+                return Math.Sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
+            }
+
+            public static double GetSquareMagnitude(Vector3D v)
+            {
+                return v.x * v.x + v.y * v.y + v.z * v.z;
+            }
+
+            public static double GetR(double rho, double phi)
+            {
+                return rho * Math.Sin(phi);
+            }
+
+            public static double ConvertRectToSpherical(Vector3D v)
+            {
+                throw new NotImplementedException();
+            }
+
+            public static double ConvertSphericalToRect(double rho, double theta, double phi)
+            {
+                throw new NotImplementedException();
+            }
 
         }
 

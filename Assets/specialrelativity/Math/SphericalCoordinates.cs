@@ -15,7 +15,7 @@ namespace SpecialRelativity
 
             public static float GetTheta(Vector3 v)
             {
-                return Mathf.Atan2(v.x, v.z) / (float)Constants.PI;
+                return Mathf.Atan2(v.x, v.y) / (float)Constants.PI;
             }
 
             public static float GetPhi(Vector3 v)

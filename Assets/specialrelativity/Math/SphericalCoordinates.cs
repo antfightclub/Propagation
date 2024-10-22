@@ -7,7 +7,7 @@ namespace SpecialRelativity
 {
     public class SphericalCoordinates
     {
-        public class SphericalCoordsSingle
+        public class Single
         {
             float rho;
             float theta;
@@ -36,23 +36,30 @@ namespace SpecialRelativity
 
             public static float GetR(float rho, float phi)
             {
-                return rho * Mathf.Sin(phi);                
+                return rho * Mathf.Cos(phi);                
             }
 
             public static float[] ConvertRectToSpherical(Vector3 v)
             {
-                throw new NotImplementedException();
+                float rho = GetMagnitude(v);
+                float theta = GetTheta(v);
+                float phi = GetPhi(v);
+                return new[] { rho, theta, phi };
             }
 
             public static Vector3 ConvertSphericalToRect(float rho, float theta, float phi)
             {
-                throw new NotImplementedException();
+                float r = GetR(rho, phi);
+                float x = r * Mathf.Cos(theta);
+                float y = r * Mathf.Sin(theta);
+                float z = rho * Mathf.Cos(phi);
+                return new Vector3(x, y, z);
             }
 
 
         }
 
-        public class SphericalCoordsDouble
+        public class Double
         {
             public struct coords_double
             {
@@ -63,7 +70,7 @@ namespace SpecialRelativity
 
             public static double GetTheta(Vector3D v)
             {
-                return Math.Atan2(v.x, v.z) / Constants.PI;
+                return Math.Atan2(v.z, v.y) / Constants.PI; //originally atan2(v.x, v.z)
             }
 
             public static double GetPhi(Vector3D v)
@@ -84,17 +91,24 @@ namespace SpecialRelativity
 
             public static double GetR(double rho, double phi)
             {
-                return rho * Math.Sin(phi);
+                return rho * Math.Cos(phi);
             }
 
             public static double[] ConvertRectToSpherical(Vector3D v)
             {
-                throw new NotImplementedException();
+                double rho = GetMagnitude(v);
+                double theta = GetTheta(v);
+                double phi = GetPhi(v);
+                return new[] { rho, theta, phi };
             }
 
             public static Vector3D ConvertSphericalToRect(double rho, double theta, double phi)
             {
-                throw new NotImplementedException();
+                double r = GetR(rho, phi);
+                double x = r*Math.Cos(theta);
+                double y = r*Math.Sin(theta);
+                double z = rho * Math.Cos(phi);
+                return new Vector3D(x, y, z);
             }
 
         }

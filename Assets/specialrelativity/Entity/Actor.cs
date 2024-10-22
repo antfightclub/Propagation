@@ -1,15 +1,21 @@
 using System;
 using UnityEngine;
+using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 namespace SpecialRelativity
 {
     public class Actor : MonoBehaviour
     {
         [SerializeField]
-        public float maxDist = 3000.0f;
-
+        public float maxDist = 300.0f;
+        //[SerializeField]
         Transform trans;
+        Vector3D actorPosition; // actor position in the global world space of doubles
+        Vector3D playerPosition = new Vector3D(0, 0, 0); // For testing it is assumed player is in origin
 
+        [SerializeField]
+        Vector3 testPos;
+        
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
@@ -19,7 +25,9 @@ namespace SpecialRelativity
         // Update is called once per frame
         void Update()
         {
-
+            float x = testPos.x; float y = testPos.y; float z = testPos.z;
+            trans.position = new Vector3(x, y, z);
+            LockDist();
         }
 
         /// <summary>
@@ -46,19 +54,29 @@ namespace SpecialRelativity
         void LockDist()
         {
             Vector3 pos = trans.position;
-
+            float rho = SphericalCoordinates.Single.GetMagnitude(pos);
+            if (rho > maxDist)
+            {
+                // sphCoords[0] = rho; sphCoords[1] = theta; sphCoords[2] = phi;
+                float[] sphCoords = SphericalCoordinates.Single.ConvertRectToSpherical(pos);
+                float r = maxDist;
+                float x = r * Mathf.Cos(sphCoords[1]);
+                float y = r * Mathf.Sin(sphCoords[1]);
+                float z = rho * Mathf.Cos(sphCoords[2]);
+                trans.position = new Vector3(x, y, z);
+            }
 
         }
 
-        Vector3 GetSphericalCoordinatesLocal(Vector3D actorPosition, Vector3D playerPosition)
+        float[] GetSphericalCoordinatesLocal(Vector3D actorPosition, Vector3D playerPosition)
         {
             Vector3D playerToOrigin = -playerPosition;
             Vector3D actorPositionTranslated = actorPosition - playerPosition;
-            double theta = Math.Atan2(actorPositionTranslated.x, actorPositionTranslated.z) / Constants.PI;
-            var xzLen = new Vector2((float)actorPositionTranslated.x, (float)actorPositionTranslated.z).magnitude;
-            double phi = Math.Atan2(-actorPositionTranslated.y, xzLen);
-            // Redo to use new spherical coordinate classes
-            throw new NotImplementedException();
+            double theta = SphericalCoordinates.Double.GetTheta(actorPositionTranslated);
+            double phi = SphericalCoordinates.Double.GetPhi(actorPositionTranslated);
+            double rho = SphericalCoordinates.Double.GetSquareMagnitude(actorPositionTranslated);
+            float[] res = new float[] {(float)rho, (float)theta, (float)phi};
+            return res;
         }
         
         

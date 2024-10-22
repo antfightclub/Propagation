@@ -39,12 +39,12 @@ namespace SpecialRelativity
                 return rho * Mathf.Sin(phi);                
             }
 
-            public static float ConvertRectToSpherical(Vector3 v)
+            public static float[] ConvertRectToSpherical(Vector3 v)
             {
                 throw new NotImplementedException();
             }
 
-            public static float ConvertSphericalToRect(float rho, float theta, float phi)
+            public static Vector3 ConvertSphericalToRect(float rho, float theta, float phi)
             {
                 throw new NotImplementedException();
             }
@@ -87,12 +87,12 @@ namespace SpecialRelativity
                 return rho * Math.Sin(phi);
             }
 
-            public static double ConvertRectToSpherical(Vector3D v)
+            public static double[] ConvertRectToSpherical(Vector3D v)
             {
                 throw new NotImplementedException();
             }
 
-            public static double ConvertSphericalToRect(double rho, double theta, double phi)
+            public static Vector3D ConvertSphericalToRect(double rho, double theta, double phi)
             {
                 throw new NotImplementedException();
             }

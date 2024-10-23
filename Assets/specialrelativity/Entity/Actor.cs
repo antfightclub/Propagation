@@ -8,39 +8,43 @@ namespace SpecialRelativity
     {
         public Mesh mesh;
         public Material material;
+        public Vector3 testPos;
 
-        [SerializeField]
         public float maxDist = 300.0f;
-        //[SerializeField]
-        Transform trans;
-        Vector3D actorPosition; // actor position in the global world space of doubles
-        Vector3D playerPosition = new Vector3D(0, 0, 0); // For testing it is assumed player is in origin
 
-        [SerializeField]
-        Vector3 testPos;
-        public float actualDiameter = 10.0f;
+        Vector3D actorPosition = new Vector3D(0.0d, 0.0d, Conversions.MetersToLightseconds(384_400_000.0d)); // actor position in the global world space of doubles
+        Vector3D playerPosition = new Vector3D(0.0d, 0.0d, Conversions.MetersToLightseconds(5000.0d)); 
+        public float actualDiameter = 3_474_000.0f;
+
+
+        //public float actualDiameter = 10.0f;
         public float scalingFactor = 1.0f;
         
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-            this.trans = GetComponent<Transform>();
+            
         }
 
         // Update is called once per frame
         void Update()
         {
-            float x = testPos.x; float y = testPos.y; float z = testPos.z;
-            //trans.position = new Vector3(x, y, z);
-            //float[] sphCoords = SphericalCoordinates.Single.ConvertRectToSpherical(testPos);
-            //Vector3 drawnPos = SphericalCoordinates.Single.ConvertSphericalToRect(maxDist, sphCoords[1], sphCoords[2]);
-            //float angle = CalculateAngularDiameter(testPos, actualDiameter);
-            //scalingFactor = CalculateScalingFactor(maxDist, angle, actualDiameter);
+            // Here is what should be used when stuff is really really far away
+            float[] localSphCoords = GetLocalPositionOnSphere(actorPosition, playerPosition);
+            Vector3 drawnPos = SphericalCoordinates.Single.ConvertSphericalToRect(maxDist, localSphCoords[1], localSphCoords[2]);
+            double lsdist = GetDistBetweenActorAndPlayer(actorPosition, playerPosition);
+            double meterdist = Conversions.LightsecondsToMeters(lsdist);
+            float angle = 2 * Mathf.Atan2(actualDiameter, 2*(float)meterdist);
+            scalingFactor = CalculateScalingFactor(maxDist, angle, actualDiameter);
+            DrawMesh(material, drawnPos, actualDiameter * scalingFactor);
+
+            // Below is what should be used when stuff is "near" (between 0 meters and a few thousand ish meters)
+            /*float x = testPos.x; float y = testPos.y; float z = testPos.z;
             if (testPos.magnitude < maxDist)
             {
                 Vector3 drawnPos = new Vector3(x, y, z);
                 DrawMesh(material, drawnPos, actualDiameter);
-            }
+            }*
             else if (testPos.magnitude > maxDist)
             {
                 float[] sphCoords = SphericalCoordinates.Single.ConvertRectToSpherical(new Vector3(x, y, z));
@@ -49,13 +53,26 @@ namespace SpecialRelativity
                 float angle = CalculateAngularDiameter(testPos, actualDiameter);
                 scalingFactor = CalculateScalingFactor(maxDist, angle, actualDiameter);
                 DrawMesh(material, drawnPos, actualDiameter * scalingFactor);
-            }
+            }*/
             
             //LockDist();
             
         }
 
+        // Assumed that the distance is NONLOCAL, as in not anywhere near local space
+        private float[] GetLocalPositionOnSphere(Vector3D actorPosition, Vector3D playerPosition)
+        {
+            Vector3D translated = actorPosition - playerPosition;
+            double[] sphCoords = SphericalCoordinates.Double.ConvertRectToSpherical(translated);
+            return new[] { maxDist, (float)sphCoords[1], (float)sphCoords[2] };
 
+        }
+
+        private double GetDistBetweenActorAndPlayer(Vector3D actorPosition, Vector3D playerPosition)
+        {
+            Vector3D v = actorPosition - playerPosition;
+            return Math.Sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
+        }
 
         /// <summary>
         /// Calculate angular diameter as apparent for the player. diameter and distance from player expressed in meters
@@ -78,7 +95,7 @@ namespace SpecialRelativity
             return 2 * this.maxDist * Math.Tan(angle);
         }
 
-        void LockDist()
+        /*void LockDist()
         {
             Vector3 pos = trans.position;
             float rho = SphericalCoordinates.Single.GetMagnitude(pos);
@@ -99,10 +116,12 @@ namespace SpecialRelativity
             Vector3D actorPositionTranslated = actorPosition - playerPosition;
             double theta = SphericalCoordinates.Double.GetTheta(actorPositionTranslated);
             double phi = SphericalCoordinates.Double.GetPhi(actorPositionTranslated);
-            double rho = SphericalCoordinates.Double.GetSquareMagnitude(actorPositionTranslated);
+            double rho = SphericalCoordinates.Double.GetMagnitude(actorPositionTranslated);
             float[] res = new float[] {(float)rho, (float)theta, (float)phi};
             return res;
-        }
+        }*/
+
+        
         
         private float CalculateAngularDiameter(Vector3 v, float actualDiameter)
         {

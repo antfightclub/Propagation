@@ -17,9 +17,9 @@ using UnityEngine;
  * But yea it a bit messy owo
  */
 
-namespace SpecialRelativity
+namespace SpecialRelativity.Entity
 {
-    public class Actor : MonoBehaviour
+    public class Actor_MonoBehaviour : MonoBehaviour
     {
         public Mesh mesh;
         public Material material;

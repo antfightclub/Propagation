@@ -4,7 +4,7 @@ namespace SpecialRelativity.Entity
 {
     public class Actor
     {
-
+        
 
     }
 

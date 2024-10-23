@@ -28,7 +28,7 @@ namespace SpecialRelativity
         public float maxDist = 300.0f;
 
         Vector3D actorPosition = new Vector3D(0.0d, 0.0d, Conversions.MetersToLightseconds(384_400_000.0d)); // actor position in the global world space of doubles
-        Vector3D playerPosition = new Vector3D(0.0d, 0.0d, Conversions.MetersToLightseconds(5000.0d)); 
+        Vector3D playerPosition = new Vector3D(0.0d, 0.0d, Conversions.MetersToLightseconds(5_000_000.0d)); 
         public float actualDiameter = 3_474_000.0f;
 
 
@@ -45,6 +45,7 @@ namespace SpecialRelativity
         void Update()
         {
             // Here is what should be used when stuff is really really far away
+            
             float[] localSphCoords = GetLocalPositionOnSphere(actorPosition, playerPosition);
             Vector3 drawnPos = SphericalCoordinates.Single.ConvertSphericalToRect(maxDist, localSphCoords[1], localSphCoords[2]);
             double lsdist = GetDistBetweenActorAndPlayer(actorPosition, playerPosition);
@@ -59,7 +60,7 @@ namespace SpecialRelativity
             {
                 Vector3 drawnPos = new Vector3(x, y, z);
                 DrawMesh(material, drawnPos, actualDiameter);
-            }*
+            }
             else if (testPos.magnitude > maxDist)
             {
                 float[] sphCoords = SphericalCoordinates.Single.ConvertRectToSpherical(new Vector3(x, y, z));

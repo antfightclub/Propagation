@@ -1,6 +1,21 @@
 using System;
 using UnityEngine;
 
+/*
+ * OKAY; so this is a bit screwy!
+ * Gonna need to define a way to change between "near" and "far" actors. 
+ * Stars are usually gonna be mostly really far away. Planets are mostly gonna be really far away, but they're gonna need some special arcsine treatment when you get closer.
+ * If I want to land on planets I'll have to be able to switch context entirely.
+ * If in deep space and nearing a spaceship sized object, I'll have to be able to transition between near and far. Probably there's gonna be a range in which objects are detectable
+ * depending on how bright it is and how far away it is. It's gonna be a dot until it gets close enough to be resolved. Then it's gotta grow in size, until it's within 3km
+ * at which point it is allowed to pass closer. 
+ * Another point is that all of the actor contexts probably need to be outside of monobehaviors; I only need an MB to actually draw objects. Potentially I could have a
+ * single empty with a monobehavior that does Graphics.DrawMesh(); calls when passed a list of all objects to be drawn and where. 
+ * We have got to pass this list **AFTER** we have performed the foliation of the past-light cone.
+ * Gonna need to design a bit I think, but I have some basic stuff up and running!
+ * 
+ * But yea it a bit messy owo
+ */
 
 namespace SpecialRelativity
 {

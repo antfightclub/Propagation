@@ -47,8 +47,8 @@ namespace SpecialRelativity
             {
                 //float r = GetR(rho, phi);
                 float x = rho * Mathf.Sin(theta) * Mathf.Cos(phi);
-                float y = rho * Mathf.Cos(theta);
-                float z = rho * Mathf.Sin(theta) * Mathf.Sin(phi);
+                float y = rho * Mathf.Sin(theta) * Mathf.Sin(phi);
+                float z = rho * Mathf.Cos(theta);
                 return new Vector3(x, y, z);
             }
 

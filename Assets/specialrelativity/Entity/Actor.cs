@@ -1,11 +1,14 @@
 using System;
 using UnityEngine;
-using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
+
 
 namespace SpecialRelativity
 {
     public class Actor : MonoBehaviour
     {
+        public Mesh mesh;
+        public Material material;
+
         [SerializeField]
         public float maxDist = 300.0f;
         //[SerializeField]
@@ -15,6 +18,8 @@ namespace SpecialRelativity
 
         [SerializeField]
         Vector3 testPos;
+        public float actualDiameter = 10.0f;
+        public float scalingFactor = 1.0f;
         
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
@@ -26,9 +31,31 @@ namespace SpecialRelativity
         void Update()
         {
             float x = testPos.x; float y = testPos.y; float z = testPos.z;
-            trans.position = new Vector3(x, y, z);
-            LockDist();
+            //trans.position = new Vector3(x, y, z);
+            //float[] sphCoords = SphericalCoordinates.Single.ConvertRectToSpherical(testPos);
+            //Vector3 drawnPos = SphericalCoordinates.Single.ConvertSphericalToRect(maxDist, sphCoords[1], sphCoords[2]);
+            //float angle = CalculateAngularDiameter(testPos, actualDiameter);
+            //scalingFactor = CalculateScalingFactor(maxDist, angle, actualDiameter);
+            if (testPos.magnitude < maxDist)
+            {
+                Vector3 drawnPos = new Vector3(x, y, z);
+                DrawMesh(material, drawnPos, actualDiameter);
+            }
+            else if (testPos.magnitude > maxDist)
+            {
+                float[] sphCoords = SphericalCoordinates.Single.ConvertRectToSpherical(new Vector3(x, y, z));
+                Vector3 drawnPos = SphericalCoordinates.Single.ConvertSphericalToRect(maxDist, sphCoords[1], sphCoords[2]);
+                
+                float angle = CalculateAngularDiameter(testPos, actualDiameter);
+                scalingFactor = CalculateScalingFactor(maxDist, angle, actualDiameter);
+                DrawMesh(material, drawnPos, actualDiameter * scalingFactor);
+            }
+            
+            //LockDist();
+            
         }
+
+
 
         /// <summary>
         /// Calculate angular diameter as apparent for the player. diameter and distance from player expressed in meters
@@ -59,11 +86,9 @@ namespace SpecialRelativity
             {
                 // sphCoords[0] = rho; sphCoords[1] = theta; sphCoords[2] = phi;
                 float[] sphCoords = SphericalCoordinates.Single.ConvertRectToSpherical(pos);
-                float r = maxDist;
-                float x = r * Mathf.Cos(sphCoords[1]);
-                float y = r * Mathf.Sin(sphCoords[1]);
-                float z = rho * Mathf.Cos(sphCoords[2]);
-                trans.position = new Vector3(x, y, z);
+                float radius = maxDist;
+                Vector3 newPos = SphericalCoordinates.Single.ConvertSphericalToRect(radius, sphCoords[1], sphCoords[2]);
+                trans.position = newPos;
             }
 
         }
@@ -79,7 +104,28 @@ namespace SpecialRelativity
             return res;
         }
         
-        
+        private float CalculateAngularDiameter(Vector3 v, float actualDiameter)
+        {
+            float distance = Mathf.Sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
+            return 2 * Mathf.Atan2(actualDiameter, 2 * distance);
+        }
+
+        private float CalculateScalingFactor(float radius, float angle, float actualDiameter)
+        {
+            float scaledDiameter = radius * Mathf.Tan(angle);
+            float scalingFactor = scaledDiameter / actualDiameter;
+            if (scalingFactor > 1.0f)
+            {
+                scalingFactor = 1.0f;
+            }
+            return scalingFactor;
+        }
+
+        private void DrawMesh(Material material, Vector3 pos, float scale = 1.0f)
+        {
+            Matrix4x4 trans = Matrix4x4.TRS(pos, Quaternion.identity, new Vector3(scale, scale, scale));
+            Graphics.DrawMesh(mesh, trans, material, 0);
+        }
 
     }
 

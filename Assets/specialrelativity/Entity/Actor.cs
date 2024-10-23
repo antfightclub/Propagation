@@ -45,7 +45,7 @@ namespace SpecialRelativity
         void Update()
         {
             // Here is what should be used when stuff is really really far away
-            
+            /*
             float[] localSphCoords = GetLocalPositionOnSphere(actorPosition, playerPosition);
             Vector3 drawnPos = SphericalCoordinates.Single.ConvertSphericalToRect(maxDist, localSphCoords[1], localSphCoords[2]);
             double lsdist = GetDistBetweenActorAndPlayer(actorPosition, playerPosition);
@@ -53,9 +53,10 @@ namespace SpecialRelativity
             float angle = 2 * Mathf.Atan2(actualDiameter, 2*(float)meterdist);
             scalingFactor = CalculateScalingFactor(maxDist, angle, actualDiameter);
             DrawMesh(material, drawnPos, actualDiameter * scalingFactor);
+            */
 
             // Below is what should be used when stuff is "near" (between 0 meters and a few thousand ish meters)
-            /*float x = testPos.x; float y = testPos.y; float z = testPos.z;
+            float x = testPos.x; float y = testPos.y; float z = testPos.z;
             if (testPos.magnitude < maxDist)
             {
                 Vector3 drawnPos = new Vector3(x, y, z);
@@ -69,10 +70,16 @@ namespace SpecialRelativity
                 float angle = CalculateAngularDiameter(testPos, actualDiameter);
                 scalingFactor = CalculateScalingFactor(maxDist, angle, actualDiameter);
                 DrawMesh(material, drawnPos, actualDiameter * scalingFactor);
-            }*/
+            }
+
             
             //LockDist();
             
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.DrawWireSphere(Vector3.zero, maxDist);
         }
 
         // Assumed that the distance is NONLOCAL, as in not anywhere near local space

@@ -98,7 +98,7 @@ namespace SpecialRelativity
                 //double r = GetR(rho, phi);
                 // swapped y and z for it to make sense with Unity's stuff, although it's still right-handed instead of unity's lefthanded.
                 double x = rho * Math.Sin(theta) * Math.Cos(phi);
-                double y = rho * Math.Sin(phi) * Math.Sin(phi);
+                double y = rho * Math.Sin(theta) * Math.Sin(phi);
                 double z = rho * Math.Cos(theta);
                 return new Vector3D(x, y, z);
             }

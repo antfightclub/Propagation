@@ -1,7 +1,5 @@
 using UnityEngine;
 using System;
-using Unity.VisualScripting;
-using Palmmedia.ReportGenerator.Core.CodeAnalysis;
 
 namespace SpecialRelativity
 {

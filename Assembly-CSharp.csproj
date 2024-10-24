@@ -63,12 +63,13 @@
   <ItemGroup>
     <Compile Include="Assets\specialrelativity\Math\Constants.cs" />
     <Compile Include="Assets\Prototyped scenes\PropagationTest_4DArray\SpaceTimePositions.cs" />
-    <Compile Include="Assets\specialrelativity\Entity\Player.cs" />
+    <Compile Include="Assets\specialrelativity\Entity\Player\PlayerController.cs" />
     <Compile Include="Assets\specialrelativity\Entity\World.cs" />
     <Compile Include="Assets\specialrelativity\Math\Util\DoubleExtensions.cs" />
     <Compile Include="Assets\specialrelativity\Game.cs" />
     <Compile Include="Assets\specialrelativity\Math\Lorentz.cs" />
     <Compile Include="Assets\specialrelativity\Math\Matrix44.cs" />
+    <Compile Include="Assets\specialrelativity\Entity\Bodies\StarController.cs" />
     <Compile Include="Assets\specialrelativity\Entity\CelestialObjectController.cs" />
     <Compile Include="Assets\Prototyped scenes\PropagationTest1_Queue\ObserverEventQueue.cs" />
     <Compile Include="Assets\specialrelativity\FarawaySkydome\MapLatLong.cs" />
@@ -87,12 +88,14 @@
     <Compile Include="Assets\specialrelativity\Math\Conversions.cs" />
     <Compile Include="Assets\specialrelativity\Math\Transform_float64.cs" />
     <Compile Include="Assets\specialrelativity\Math\Vector3D.cs" />
+    <Compile Include="Assets\specialrelativity\Entity\Bodies\Star.cs" />
     <Compile Include="Assets\specialrelativity\Math\SphericalCoordinates.cs" />
     <Compile Include="Assets\Prototyped scenes\PropagationTest2_Sphere\EventChecker.cs" />
     <Compile Include="Assets\specialrelativity\Math\Worldline.cs" />
     <Compile Include="Assets\Prototyped scenes\MovementTestScene\Movement.cs" />
     <Compile Include="Assets\Prototyped scenes\GenerateStars\WorldGen.cs" />
     <Compile Include="Assets\Prototyped scenes\PropagationTest1_Queue\EventQueueManager.cs" />
+    <Compile Include="Assets\specialrelativity\Entity\Player\Player.cs" />
     <Compile Include="Assets\specialrelativity\Math\Tests\Vector3DTests.cs" />
     <Compile Include="Assets\specialrelativity\Math\Util.cs" />
   </ItemGroup>

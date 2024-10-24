@@ -42,7 +42,7 @@ namespace SpecialRelativity
         public int n;
         public List<Vector4D> line;
         public List<Quat> state;
-        public Dictionary<long, double> ix_map; 
+        public Dictionary<long, double> ix_map; // probably better with a hashset?
         public int last;
 
         public void Init(PhaseSpace P, Quat Q)

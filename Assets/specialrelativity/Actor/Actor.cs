@@ -6,20 +6,57 @@ namespace SpecialRelativity.Entity
     public class Actor
     {
         
-        public Vector4D actualPosition;
-        public Vector4D playerPosition;
-        public float maxDist;
-        public double actualDiameter;
+        private Vector4D _actualPosition;
+        private Vector4D _playerPosition;
+        private float _maxDist;
+        private double _actualDiameter;
+        private float _scalingFactor = 1.0f;
+
+        public Vector4D ActualPosition
+        {
+            get { return _actualPosition; }
+            set { _actualPosition = value; }
+        }
+        public Vector4D PlayerPosition
+        {
+            get { return _playerPosition; }
+            set { _playerPosition = value; }
+        }
+        public float MaxDist
+        {
+            get { return _maxDist; }
+            set { _maxDist = value; }
+        }
+        public double ActualDiameter
+        {
+            get
+            {
+                return _actualDiameter;
+            }
+            set
+            {
+                _actualDiameter = value;
+            }
+        }
+        public float ScalingFactor
+        {
+            get
+            {
+                return _scalingFactor;
+            }
+            set
+            {
+                _scalingFactor = value;
+            }
+        }
 
         public Actor(Vector4D actualPosition, Vector4D playerPosition, double actualDiameter, float maxDist = 300.0f)
         {
-            this.actualPosition = actualPosition;
-            this.playerPosition = playerPosition;
-            this.actualDiameter = actualDiameter;
-            this.maxDist = maxDist;
+            ActualPosition = actualPosition;
+            PlayerPosition = playerPosition;
+            ActualDiameter = actualDiameter;
+            MaxDist = maxDist;
         }
-
-        public float scalingFactor = 1.0f;
 
 
         private static float[] GetLocalPositionOnSphere(Vector3D actorPosition, Vector3D playerPosition, float maxDist = 300.0f)

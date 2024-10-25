@@ -54,7 +54,7 @@ namespace SpecialRelativity.Entity
             //player = playerController.Player;
 
             //Console.WriteLine("player was null");
-            Vector4D playerPos = PlayerController.Instance.Player.GetPosition();
+            Vector4D playerPos = PlayerController.Instance.Player.Position;
             actor = new Actor(pos, playerPos, actualDiameter);
             //Vector4D v = playerPos - pos;
             //actualDistance = Conversions.LightsecondsToMeters(Math.Sqrt(v.x * v.x + v.y * v.y + v.z * v.z));
@@ -71,7 +71,7 @@ namespace SpecialRelativity.Entity
             //this.actor.actualPosition = this.pos;
             //this.actor.actualDiameter = this.actualDiameter;
             
-            Actor.UpdateLogic(pos, PlayerController.Instance.Player.GetPosition(), actualDiameter, maxDist, out Vector3 drawnPos, out float diam, out double meterdist);
+            Actor.UpdateLogic(pos, PlayerController.Instance.Player.Position, actualDiameter, maxDist, out Vector3 drawnPos, out float diam, out double meterdist);
             logger.Log("drawnpos = " + drawnPos + " and  actual distance =" + meterdist + " and scaled diameter =" + diam);
             DrawMesh(material, drawnPos, diam);
             

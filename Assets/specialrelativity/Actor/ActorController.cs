@@ -44,6 +44,14 @@ namespace SpecialRelativity.Entity
 
         public float scaledDiameter;
 
+        private Vector4D _playerPos;
+        public Vector4D PlayerPos
+        {
+            get { return _playerPos; }
+            set { _playerPos = value; }
+        }
+
+
         private void Awake()
         {
             logger = new Logger(Debug.unityLogger.logHandler);
@@ -54,8 +62,10 @@ namespace SpecialRelativity.Entity
             //player = playerController.Player;
 
             //Console.WriteLine("player was null");
-            Vector4D playerPos = PlayerController.Instance.Player.Position;
-            actor = new Actor(pos, playerPos, actualDiameter);
+
+            PlayerPos = new Vector4D();
+            
+            actor = new Actor(pos, PlayerPos, actualDiameter);
             //Vector4D v = playerPos - pos;
             //actualDistance = Conversions.LightsecondsToMeters(Math.Sqrt(v.x * v.x + v.y * v.y + v.z * v.z));
 
@@ -95,6 +105,10 @@ namespace SpecialRelativity.Entity
 
         private void DrawMesh(Material material, Vector3 pos, float scale = 1.0f)
         {
+            if (scale <= 0.00001f)
+            {
+                scale = 10f;
+            }
             Matrix4x4 trans = Matrix4x4.TRS(pos, Quaternion.identity, new Vector3(scale, scale, scale));
             Graphics.DrawMesh(mesh, trans, material, 0);
         }

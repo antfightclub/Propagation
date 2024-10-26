@@ -75,3 +75,4 @@ crashlytics-build.properties
 ########## USER ##########
 /Assets/TextMesh Pro
 Assembly-CSharp.csproj
+*.csproj

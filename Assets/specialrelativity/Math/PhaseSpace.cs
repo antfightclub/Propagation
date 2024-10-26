@@ -20,8 +20,16 @@ namespace SpecialRelativity
             this.X = new Vector4D(X.t, X.x, X.y, X.z);
             this.U = new Vector4D(U.t, U.x, U.y, U.z);
         }
-        public Vector4D GetX() { return this.X; }
-        public Vector4D GetU() { return this.U; }
+        public Vector4D x 
+        { 
+            get { return this.X; } 
+            set { this.X = value;}
+        }
+        public Vector4D u 
+        { 
+            get { return this.U; }
+            set { this.U = value;}
+        }
 
         public PhaseSpace Copy()
         {
@@ -41,10 +49,10 @@ namespace SpecialRelativity
         // Not sure... but I gotta fix the CS0120 error...
         public Vector4D Transform(Vector4D acceleration, double ds)
         {
-            this.X.t = this.X.t + this.U.t * ds;
-            this.X.x = this.X.x + this.U.x * ds;
-            this.X.y = this.X.y + this.U.y * ds;
-            this.X.z = this.X.z + this.U.z * ds;
+            this.X.t += this.U.t * ds;
+            this.X.x += this.U.x * ds;
+            this.X.y += this.U.y * ds;
+            this.X.z += this.U.z * ds;
             acceleration.t = 0.0d;
             Vector4D neg = new Vector4D(-U.t, -U.x, -U.y, -U.z);
             Matrix44 L = Matrix44.Zero;

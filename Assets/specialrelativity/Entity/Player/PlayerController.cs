@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour
     private World world;
     public World World => world;
 
+    public PlayerWorldline playerWorldline;
+
     public double x;
     public double y;
     public double z;
@@ -39,6 +41,7 @@ public class PlayerController : MonoBehaviour
         //player = Player(World world, );
         jumpAction = InputSystem.actions.FindAction("Jump");
         //_instance = this;
+        playerWorldline.Line = new List<Vector4D>();
     }
 
     private void Awake()
@@ -56,6 +59,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+
         this.x += velx;
         this.y += vely;
         this.z += velz;
@@ -65,6 +70,9 @@ public class PlayerController : MonoBehaviour
         {
             PerformJump();
         }
+
+        playerWorldline.Line.Add(Player.Position);
+
     }
 
     private void PerformJump()

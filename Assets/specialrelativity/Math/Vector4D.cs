@@ -7,6 +7,26 @@ namespace SpecialRelativity
     public class Vector4D
     {
         public double t, x, y, z;
+        public double T
+        {
+            get { return this.t; }
+            set { this.t = value; }
+        }
+        public double X
+        {
+            get { return this.x; }
+            set { this.x = value; }
+        }
+        public double Y
+        {
+            get { return this.y; }
+            set { this.y = value; }
+        }
+        public double Z
+        {
+            get { return this.z; }
+            set { this.z = value; }
+        }
 
         /// <summary>
         /// zero-parameter constructor, returns a Vector4D with [t=1.0d, x=0.0d, y=0.0d, z=0.0d]
@@ -59,54 +79,7 @@ namespace SpecialRelativity
                 this.z);
         }
 
-        /// <summary>
-        /// Returns the t component of self
-        /// </summary>
-        /// <returns></returns>
-        public double GetT() { return this.t; }
 
-        /// <summary>
-        /// Returns the x component of self
-        /// </summary>
-        /// <returns></returns>
-        public double GetX() { return this.x; }
-
-        /// <summary>
-        /// Returns the y component of self
-        /// </summary>
-        /// <returns></returns>
-        public double GetY() { return this.y; }
-
-        /// <summary>
-        /// Returns the z component of self
-        /// </summary>
-        /// <returns></returns>
-        public double GetZ() { return this.z; }
-
-
-        /// <summary>
-        /// Set the t component of self
-        /// </summary>
-        /// <param name="t"></param>
-        public void SetT(double t) { this.t = t; }
-
-        /// <summary>
-        /// Set the x component of self
-        /// </summary>
-        /// <param name="x"></param>
-        public void SetX(double x) { this.x = x; }
-
-        /// <summary>
-        /// Set the y component of self
-        /// </summary>
-        /// <param name="y"></param>
-        public void SetY(double y) { this.y = y; }
-
-        /// <summary>
-        /// Set the z component of self
-        /// </summary>
-        /// <param name="z"></param>
-        public void SetZ(double z) { this.z = z; }
 
 
 
@@ -114,15 +87,14 @@ namespace SpecialRelativity
         /// Get the spatial (x, y, z) components of Vector4D as Vector3D
         /// </summary>
         /// <returns></returns>
-        public Vector3D Get3D() { return new Vector3D(this.x, this.y, this.z); }
-        /// <summary>
-        /// Set the spatial (x, y, z) component of a Vector4D with a Vector3D
-        /// </summary>
-        /// <param name="v"></param>
-        public void Set3D(Vector3D v) { this.x = v.GetX(); this.y = v.GetY(); this.z = v.GetZ();  }
+        public Vector3D Component3D
+        { 
+            get { return new Vector3D(this.x, this.y, this.z); }   
+            set { this.x = value.x; this.y = value.y; this.z = value.z; }
+        }
+
 
         // Define basic operators with doubles in vector
-
         public static Vector4D operator +(Vector4D a, Vector4D b) 
         { 
             return new Vector4D(
@@ -227,6 +199,10 @@ namespace SpecialRelativity
         {
             return this.x * v.x + this.y * v.y + this.z * v.z;
         }
+        public double Dot(Vector4D left, Vector4D right)
+        {
+            return left.x * right.x + left.y * right.y + left.z * right.z;
+        }
 
         /// <summary>
         /// Get gamma (lorentz factor) of the spatial components. If vector is 0 length it returns 1.0d
@@ -235,6 +211,10 @@ namespace SpecialRelativity
         public double GetGamma()
         {
             return Math.Sqrt(1.0d + this.x * this.x + this.y * this.y + this.z * this.z);
+        }
+        public double LorentzFactor
+        {
+            get { return Math.Sqrt(1.0d + this.x * this.x + this.y * this.y + this.z * this.z); }
         }
 
         /// <summary>

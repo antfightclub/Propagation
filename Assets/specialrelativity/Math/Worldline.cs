@@ -45,11 +45,26 @@ namespace SpecialRelativity
         public Dictionary<long, double> ix_map; // probably better with a hashset?
         public int last;
 
-        public void Init(PhaseSpace P, Quat Q)
+        public int N
+        {
+            get { return n; } 
+            private set { n = value; }
+        }
+        public List<Vector4D> Line
+        {
+            get { return line; }
+            set { line = value; }
+        }
+        public List<Quat> State
+        {
+            get { return state; }
+           
+        }
+        
+        public WorldLine(PhaseSpace P, Quat Q)
         {
             this.line[0] = P.X.Copy();
             this.state[0] = Q;
-            this.ix_map = new Dictionary<long, double>();
             this.n = 1;
             this.last = -1;
         }

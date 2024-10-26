@@ -60,12 +60,22 @@ namespace SpecialRelativity
             star.Position = new Vector4D(1.0d, posX, posY, posZ);
             Actor.UpdateLogic(Star.Position, PlayerController.Instance.Player.Position, Conversions.LightsecondsToMeters(2 * radius), MaxDist, out Vector3 drawnPos, out float diam, out double meterdist, out float[] sphcoords);
             DrawQuad(material, drawnPos, 35f);
+            //MoveTowards();
         }
         private void OnDrawGizmos()
         {
             Gizmos.DrawWireSphere(Vector3.zero, maxDist);
         }
 
+        /*private void MoveTowards()
+        {
+            double accel = 0.02;
+            Vector3D directionOfTravel = PlayerController.Instance.Player.Position.Component3D - star.Position.Component3D;
+            directionOfTravel.Normalize();
+            posX *= directionOfTravel.x * 1+accel * Time.deltaTime;
+            posY *= directionOfTravel.y * 1+accel * Time.deltaTime;
+            posZ *= directionOfTravel.z * 1+accel * Time.deltaTime;
+        }*/
 
         private void OnDestroy()
         {

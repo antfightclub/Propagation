@@ -36,6 +36,7 @@ namespace SpecialRelativity
                 s.Radius = rand.NextDouble();
                 s.MaxDist = 300f;
             }
+            entityToSpawn.SetActive(false);
         }
 
     }

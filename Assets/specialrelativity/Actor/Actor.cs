@@ -90,12 +90,12 @@ namespace SpecialRelativity.Entity
             return scalingFactor;
         }
 
-        public static void UpdateLogic(Vector4D actorPos, Vector4D playerPos, double actualDiameter, float maxDist, out Vector3 drawnPos, out float diam, out double meterdist)
+        public static void UpdateLogic(Vector4D actorPos, Vector4D playerPos, double actualDiameter, float maxDist, out Vector3 drawnPos, out float diam, out double meterdist, out float[] sphCoords)
         {
             Vector3D aPos = new Vector3D(actorPos.x, actorPos.y, actorPos.z);
             Vector3D pPos = new Vector3D(playerPos.x, playerPos.y, playerPos.z);
-            float[] localSphCoords = GetLocalPositionOnSphere(aPos, pPos);
-            drawnPos = SphericalCoordinates.Single.ConvertSphericalToRect(maxDist, localSphCoords[1], localSphCoords[2]);
+            sphCoords = GetLocalPositionOnSphere(aPos, pPos);
+            drawnPos = SphericalCoordinates.Single.ConvertSphericalToRect(maxDist, sphCoords[1], sphCoords[2]);
             double lsdist = GetDistBetweenActorAndPlayer(aPos, pPos);
             meterdist = Conversions.LightsecondsToMeters(lsdist);
             double meterDiameter = Conversions.LightsecondsToMeters(actualDiameter);

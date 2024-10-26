@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace SpecialRelativity.Entity
 {
@@ -19,7 +20,13 @@ namespace SpecialRelativity.Entity
 
         private Vector4D pos = new Vector4D();
 
-        public Vector4D Position => pos;
+        //public Vector4D Position => pos;
+        public Vector4D Pos
+        {
+            get { return pos; }
+            set { pos = value; }
+        }
+
         
         [SerializeField] private Mesh mesh;
         public Mesh Mesh => mesh;
@@ -65,7 +72,7 @@ namespace SpecialRelativity.Entity
 
             PlayerPos = new Vector4D();
             
-            actor = new Actor(pos, PlayerPos, actualDiameter);
+            actor = new Actor(Pos, PlayerPos, actualDiameter); 
             //Vector4D v = playerPos - pos;
             //actualDistance = Conversions.LightsecondsToMeters(Math.Sqrt(v.x * v.x + v.y * v.y + v.z * v.z));
 
@@ -76,13 +83,14 @@ namespace SpecialRelativity.Entity
         private void Update()
         {
             // Populate Update() method according to Actor_MonoBehaviour.
-            
+
             //this.actor.playerPosition = player.Player.GetPosition();
             //this.actor.actualPosition = this.pos;
             //this.actor.actualDiameter = this.actualDiameter;
             
-            Actor.UpdateLogic(pos, PlayerController.Instance.Player.Position, actualDiameter, maxDist, out Vector3 drawnPos, out float diam, out double meterdist);
+            Actor.UpdateLogic(Pos, PlayerController.Instance.Player.Position, actualDiameter, maxDist, out Vector3 drawnPos, out float diam, out double meterdist, out float[] sphCoords);
             logger.Log("drawnpos = " + drawnPos + " and  actual distance =" + meterdist + " and scaled diameter =" + diam);
+            
             DrawMesh(material, drawnPos, diam);
             
             scaledDiameter = diam;
@@ -105,11 +113,12 @@ namespace SpecialRelativity.Entity
 
         private void DrawMesh(Material material, Vector3 pos, float scale = 1.0f)
         {
-            if (scale <= 0.00001f)
+            if (scale <= 0.00001f) // egregious example of terrible code but im prototyping man
             {
-                scale = 10f;
+                scale = 35f;
             }
-            Matrix4x4 trans = Matrix4x4.TRS(pos, Quaternion.identity, new Vector3(scale, scale, scale));
+            Quaternion rot = Quaternion.LookRotation(pos) * Quaternion.Euler(0, 0, 90);
+            Matrix4x4 trans = Matrix4x4.TRS(pos, rot, new Vector3(scale, scale, scale));
             Graphics.DrawMesh(mesh, trans, material, 0);
         }
 

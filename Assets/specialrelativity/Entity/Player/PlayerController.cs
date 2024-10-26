@@ -18,6 +18,18 @@ public class PlayerController : MonoBehaviour
     private World world;
     public World World => world;
 
+    public double x;
+    public double y;
+    public double z;
+
+    private double lastx;
+    private double lasty;
+    private double lastz;
+
+    public double velx;
+    public double vely;
+    public double velz; // in ls
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -43,8 +55,15 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        this.x += velx;
+        this.y += vely;
+        this.z += velz;
+
+        Player.Position = new Vector4D(1.0d, this.x, this.y, this.z);
+       
     }
+
+
 
     private void OnDestroy()
     {

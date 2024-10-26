@@ -43,7 +43,9 @@ namespace SpecialRelativity
         // Update is called once per frame
         void Update()
         {
-
+            Vector4D pos = new Vector4D(1.0d, posX, posY, posZ);
+            Star.Position = pos;
+            actorController.Pos = pos;
         }
 
 

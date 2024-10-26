@@ -4,8 +4,7 @@ using System;
 namespace SpecialRelativity.Entity
 {
     public class Actor
-    {
-        
+    {  
         private Vector4D _actualPosition;
         private Vector4D _playerPosition;
         private float _maxDist;

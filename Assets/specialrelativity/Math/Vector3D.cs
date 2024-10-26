@@ -110,6 +110,18 @@ namespace SpecialRelativity
             return new Vector3D(this.x*r, this.y*r, this.z*r);
         }
 
+        /*public Vector3D Normalize
+        {
+            get { double r = this.x * this.x + this.y * this.y + this.z * this.z; r = 1.0d / Math.Sqrt(r); return new Vector3D(this.x * r, this.y * r, this.z * r); }
+            //set { double r = this.x * this.x + this.y * this.y + this.z * this.z; r = 1.0d / Math.Sqrt(r); this.x *= r; this.y *= r; this.z *= r; }  
+        }*/
+
+        public Vector3D Normalize()
+        {
+            double r = this.x * this.x + this.y * this.y + this.z * this.z;
+            r = 1.0d / Math.Sqrt(r);
+            this.x *= r; this.y *= r; this.z *= r; return this;
+        }
         /// <summary>
         /// Gets the normalized Vector3D u to "length"
         /// </summary>

@@ -1,6 +1,7 @@
 using SpecialRelativity;
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -22,14 +23,13 @@ public class PlayerController : MonoBehaviour
     public double y;
     public double z;
 
-    private double lastx;
-    private double lasty;
-    private double lastz;
-
     public double velx;
     public double vely;
     public double velz; // in ls
 
+    private InputAction jumpAction;
+
+    System.Random rnd = new System.Random();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour
         if (!trans) trans = GetComponent<Transform>();
         player = new Player(new Vector4D(0.0d, 0.0d, 0.0d, 0.0d));
         //player = Player(World world, );
+        jumpAction = InputSystem.actions.FindAction("Jump");
         //_instance = this;
     }
 
@@ -60,13 +61,26 @@ public class PlayerController : MonoBehaviour
         this.z += velz;
 
         Player.Position = new Vector4D(1.0d, this.x, this.y, this.z);
-       
+        if (jumpAction.WasPressedThisFrame())
+        {
+            PerformJump();
+        }
     }
 
+    private void PerformJump()
+    {
+        this.x += rnd.NextDouble() * rnd.Next(-10, 10);
+        this.y += rnd.NextDouble() * rnd.Next(-10, 10);
+        this.z += rnd.NextDouble() * rnd.Next(-10, 10);
+        Player.Position = new Vector4D(1.0d, this.x, this.y, this.z);
 
+    }
 
     private void OnDestroy()
     {
         //_instance.Remove(this);
     }
+
+
+
 }

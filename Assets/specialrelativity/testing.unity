@@ -246,6 +246,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trans: {fileID: 1548933062}
+  playerWorldline: {fileID: 11400000, guid: 7f21f154496822440a9cd5162a01c89e, type: 2}
   x: 0
   y: 0
   z: 0

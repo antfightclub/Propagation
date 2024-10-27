@@ -250,9 +250,12 @@ MonoBehaviour:
   x: 0
   y: 0
   z: 0
-  velx: 0
-  vely: 0
-  velz: 0
+  velx: 0.001
+  vely: 0.001
+  velz: 0.001
+  accelx: 0
+  accely: 0
+  accelz: 0
 --- !u!114 &1548933066
 MonoBehaviour:
   m_ObjectHideFlags: 0

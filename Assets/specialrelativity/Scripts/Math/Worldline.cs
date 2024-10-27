@@ -40,8 +40,8 @@ namespace SpecialRelativity
     public class WorldLine
     {
         public int _n;
-        public List<Vector4D> line;
-        public List<Quat> state;
+        public List<Vector4D> line = new List<Vector4D>();
+        public List<Quat> state = new List<Quat>();
         public int last;
 
         public int n
@@ -62,8 +62,8 @@ namespace SpecialRelativity
         
         public WorldLine(PhaseSpace P, Quat Q)
         {
-            this.line[0] = P.X.Copy();
-            this.state[0] = Q;
+            this.line.Add(P.X.Copy());
+            this.state.Add(Q);
             this._n = 1;
             this.last = -1;
         }

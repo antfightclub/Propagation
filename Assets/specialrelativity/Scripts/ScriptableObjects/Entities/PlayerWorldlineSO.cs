@@ -3,7 +3,7 @@ using SpecialRelativity;
 using System.Collections.Generic;
 
 [CreateAssetMenu(fileName = "PlayerWorldline", menuName = "Scriptable Objects/PlayerWorldline")]
-public class PlayerWorldline : ScriptableObject
+public class PlayerWorldlineSO : ScriptableObject
 {
-    public List<Vector4D> Line;
+    public WorldLine WorldLine;
 }

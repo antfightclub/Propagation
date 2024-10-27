@@ -6,7 +6,7 @@ namespace SpecialRelativity
     public class CelestialBodySpawner : MonoBehaviour
     {
         public GameObject entityToSpawn;
-        public CelestialBodies spawnManagerValues;
+        public CelestialBodiesSO spawnManagerValues;
         int instanceNumber = 1;
 
         System.Random rand = new System.Random();

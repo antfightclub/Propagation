@@ -7,9 +7,6 @@ public class PlayerController : MonoBehaviour
 {
     public static PlayerController Instance { get; private set; }
 
-    private Transform_float64 doubleTrans;
-    public Transform_float64 DoubleTrans => doubleTrans;
-
     [SerializeField] private Transform trans;
     public Transform Trans => trans;
     

@@ -39,16 +39,15 @@ namespace SpecialRelativity
     */
     public class WorldLine
     {
-        public int n;
+        public int _n;
         public List<Vector4D> line;
         public List<Quat> state;
-        public Dictionary<long, double> ix_map; // probably better with a hashset?
         public int last;
 
-        public int N
+        public int n
         {
-            get { return n; } 
-            private set { n = value; }
+            get { return _n; } 
+            private set { _n = value; }
         }
         public List<Vector4D> Line
         {
@@ -65,33 +64,21 @@ namespace SpecialRelativity
         {
             this.line[0] = P.X.Copy();
             this.state[0] = Q;
-            this.n = 1;
+            this._n = 1;
             this.last = -1;
         }
 
-        public void SetId(long ix)
-        {
-            this.ix_map.Add(ix, 0.0d);
-        }
-
-        public void DelId(long ix)
-        {
-            if (this.ix_map.ContainsKey(ix))
-            {
-                ix_map.Remove(ix);
-            }
-        }
 
         public void Add(PhaseSpace P, Quat Q)
         {
             this.line.Append(P.X.Copy());
             this.state.Append(Q);
-            this.n += n;
+            this._n += 1;
         }
 
         public void Cut()
         {
-            int imin = 0;
+            /*int imin = 0;
             foreach (long i in ix_map.Keys)
             {
                 if (i < imin)
@@ -104,11 +91,11 @@ namespace SpecialRelativity
                 this.line.RemoveRange(0, imin);
                 this.state.RemoveRange(0, imin);
                 this.n -= imin;
-            }
+            }*/
         }
 
         public int SearchPositionOnPLC(Vector4D Xp, long ix)
-        {
+        {/*
             double Xpt = Xp.t;
             //Dictionary<long, double>.KeyCollection keyColl = ix_map.Keys;
             int i = (int)ix;
@@ -130,7 +117,7 @@ namespace SpecialRelativity
                     }
                     return i;
                 }
-            }
+            }*/
             return -1;
         }
 

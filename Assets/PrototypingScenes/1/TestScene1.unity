@@ -151,11 +151,11 @@ MonoBehaviour:
   trans: {fileID: 3694450}
   playerWorldline: {fileID: 11400000, guid: 46dd028c9a3b7044a853e479d38bbaf4, type: 2}
   x: 0
-  y: 0
+  y: 500
   z: 0
-  velx: 0.002
-  vely: 0.004
-  velz: 0.005
+  velx: 0
+  vely: 0
+  velz: 0
 --- !u!4 &3694450
 Transform:
   m_ObjectHideFlags: 0
@@ -211,7 +211,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1273449787}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0ace05fae4c23214f8ec3f14573095e1, type: 3}
   m_Name: 
@@ -567,6 +567,57 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1948317960
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1948317962}
+  - component: {fileID: 1948317961}
+  m_Layer: 0
+  m_Name: planetary orbit gen
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1948317961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1948317960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 443a3a9e59460874d97df94faf320961, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baryX: 0
+  baryY: 0
+  baryZ: 0
+  radius: 499.02
+  timeToOrbit: 10
+  increment: 0
+  entityToSpawn: {fileID: 1534521143}
+--- !u!4 &1948317962
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1948317960}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 11.979485, y: -3.888702, z: -5.519523}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -575,3 +626,4 @@ SceneRoots:
   - {fileID: 1534521145}
   - {fileID: 1273449788}
   - {fileID: 1939565564}
+  - {fileID: 1948317962}

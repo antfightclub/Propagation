@@ -55,7 +55,7 @@ namespace SpecialRelativity
         }
 
         // Update is called once per frame
-        void Update()
+        void LateUpdate()
         {
             star.Position = new Vector4D(1.0d, posX, posY, posZ);
             Actor.UpdateLogic(Star.Position, PlayerController.Instance.Player.Position, Conversions.LightsecondsToMeters(2 * radius), MaxDist, out Vector3 drawnPos, out float diam, out double meterdist, out float[] sphcoords);

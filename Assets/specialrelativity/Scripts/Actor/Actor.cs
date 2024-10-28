@@ -80,7 +80,7 @@ namespace SpecialRelativity.Entity
         }
         private static double CalculateScalingFactor(float maxDist, double angle, double actualDiameter)
         {
-            double scaledAngularDiameter = (double)maxDist * Math.Tan(angle);
+            double scaledAngularDiameter = 2 * (double)maxDist * Math.Tan(angle);
             double scalingFactor = scaledAngularDiameter / actualDiameter;
             if (scalingFactor > 1.0f)
             {
@@ -91,17 +91,26 @@ namespace SpecialRelativity.Entity
 
         public static void UpdateLogic(Vector4D actorPos, Vector4D playerPos, double actualDiameter, float maxDist, out Vector3 drawnPos, out float diam, out double meterdist, out float[] sphCoords)
         {
-            Vector3D aPos = new Vector3D(actorPos.x, actorPos.y, actorPos.z);
-            Vector3D pPos = new Vector3D(playerPos.x, playerPos.y, playerPos.z);
+            Vector3D aPos = actorPos.Component3D;
+            Vector3D pPos = playerPos.Component3D;
             sphCoords = GetLocalPositionOnSphere(aPos, pPos);
             drawnPos = SphericalCoordinates.Single.ConvertSphericalToRect(maxDist, sphCoords[1], sphCoords[2]);
             double lsdist = GetDistBetweenActorAndPlayer(aPos, pPos);
             meterdist = Conversions.LightsecondsToMeters(lsdist);
             double meterDiameter = Conversions.LightsecondsToMeters(actualDiameter);
             double angle = 2 * Math.Atan2(meterDiameter, 2 * meterdist);
+            //double angle = meterDiameter / meterdist;
             double scaleFactor = CalculateScalingFactor(maxDist, angle, meterDiameter);
-            double doublediameter = scaleFactor * actualDiameter;
+            double doublediameter = scaleFactor * meterDiameter;
             diam = (float)doublediameter;
+            Debug.unityLogger.Log(
+                "meter diameter: " + meterDiameter + 
+                " meters, float scaled diameter: " + diam + 
+                " meters, double scaled diameter: " + doublediameter + 
+                " meters, scalefactor: " + scaleFactor + 
+                ", angle: " + angle +
+                "radians, lsdist: " + lsdist +
+                "light seconds, meterdist: " + meterdist);
         }
 
 

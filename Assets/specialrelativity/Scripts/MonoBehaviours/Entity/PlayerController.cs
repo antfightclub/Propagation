@@ -25,14 +25,14 @@ public class PlayerController : MonoBehaviour
     public double z;
 
     [Header("Velocity of player")]
-    public double velx;
-    public double vely;
-    public double velz; // in ls
+    [Range(-1f, 1f)] public double velx;
+    [Range(-1f, 1f)] public double vely;
+    [Range(-1f, 1f)] public double velz; // in ls
 
     [Header("Acceleration of player")]
-    public double accelx;
-    public double accely;
-    public double accelz;
+    [Range(-1f, 1f)] public double accelx;
+    [Range(-1f, 1f)] public double accely;
+    [Range(-1f, 1f)] public double accelz;
 
     private InputAction jumpAction;
 

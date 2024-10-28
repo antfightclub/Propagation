@@ -103,14 +103,14 @@ namespace SpecialRelativity.Entity
             double scaleFactor = CalculateScalingFactor(maxDist, angle, meterDiameter);
             double doublediameter = scaleFactor * meterDiameter;
             diam = (float)doublediameter;
-            Debug.unityLogger.Log(
+            /*Debug.unityLogger.Log(
                 "meter diameter: " + meterDiameter + 
                 " meters, float scaled diameter: " + diam + 
                 " meters, double scaled diameter: " + doublediameter + 
                 " meters, scalefactor: " + scaleFactor + 
                 ", angle: " + angle +
                 "radians, lsdist: " + lsdist +
-                "light seconds, meterdist: " + meterdist);
+                "light seconds, meterdist: " + meterdist);*/
         }
 
 

@@ -67,6 +67,7 @@ namespace SpecialRelativity
         private void DrawSphere(Material material, Vector3 pos, float scale = 1.0f)
         {
             RenderParams rp = new RenderParams(material);
+            rp.material.SetFloat("ApparentSize", scale);
             Quaternion rot = Quaternion.LookRotation(pos) * Quaternion.Euler(0, 0, 90);
             Matrix4x4 trans = Matrix4x4.TRS(pos, rot, new Vector3(scale, scale, scale));
             //Graphics.DrawMesh(mesh, trans, material, 0);

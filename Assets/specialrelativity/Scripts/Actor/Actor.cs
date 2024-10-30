@@ -98,8 +98,9 @@ namespace SpecialRelativity.Entity
             double lsdist = GetDistBetweenActorAndPlayer(aPos, pPos);
             meterdist = Conversions.LightsecondsToMeters(lsdist);
             double meterDiameter = Conversions.LightsecondsToMeters(actualDiameter);
-            double angle = 2 * Math.Atan2(meterDiameter, 2 * meterdist);
+            //double angle = 2 * Math.Atan2(meterDiameter, 2 * meterdist);
             //double angle = meterDiameter / meterdist;
+            double angle = 2 * Math.Asin(meterDiameter / (2 * meterdist));
             double scaleFactor = CalculateScalingFactor(maxDist, angle, meterDiameter);
             double doublediameter = scaleFactor * meterDiameter;
             diam = (float)doublediameter;

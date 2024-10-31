@@ -88,7 +88,7 @@ namespace SpecialRelativity.Entity
             //this.actor.actualPosition = this.pos;
             //this.actor.actualDiameter = this.actualDiameter;
             
-            Actor.UpdateLogic(Pos, PlayerController.Instance.Player.Position, actualDiameter, maxDist, out Vector3 drawnPos, out float diam, out double meterdist, out float[] sphCoords);
+            Actor.UpdateLogic(Pos, PlayerController.Instance.Player.Position, actualDiameter, maxDist, out Vector3 drawnPos, out float diam, out double meterdist, out float[] sphCoords, out float[] sphCoordsObj);
             logger.Log("drawnpos = " + drawnPos + " and  actual distance =" + meterdist + " and scaled diameter =" + diam);
             
             DrawMesh(material, drawnPos, diam);

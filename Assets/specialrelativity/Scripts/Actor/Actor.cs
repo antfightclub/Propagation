@@ -80,7 +80,7 @@ namespace SpecialRelativity.Entity
         }
         private static double CalculateScalingFactor(float maxDist, double angle, double actualDiameter)
         {
-            double scaledAngularDiameter = 2 * (double)maxDist * Math.Tan(angle);
+            double scaledAngularDiameter = (double)maxDist * Math.Tan(angle);
             double scalingFactor = scaledAngularDiameter / actualDiameter;
             if (scalingFactor > 1.0f)
             {
@@ -89,7 +89,7 @@ namespace SpecialRelativity.Entity
             return scalingFactor;
         }
 
-        public static void UpdateLogic(Vector4D actorPos, Vector4D playerPos, double actualDiameter, float maxDist, out Vector3 drawnPos, out float diam, out double meterdist, out float[] sphCoords)
+        public static void UpdateLogic(Vector4D actorPos, Vector4D playerPos, double actualDiameter, float maxDist, out Vector3 drawnPos, out float diam, out double meterdist, out float[] sphCoords, out float[] sphCoordsObj)
         {
             Vector3D aPos = actorPos.Component3D;
             Vector3D pPos = playerPos.Component3D;
@@ -100,10 +100,18 @@ namespace SpecialRelativity.Entity
             double meterDiameter = Conversions.LightsecondsToMeters(actualDiameter);
             //double angle = 2 * Math.Atan2(meterDiameter, 2 * meterdist);
             //double angle = meterDiameter / meterdist;
-            double angle = 2 * Math.Asin(meterDiameter / (2 * meterdist));
+            //double angle = 2 * Math.Asin(meterDiameter / (2 * meterdist));
+            double surfaceDist = meterdist - (meterDiameter / 2);
+            double angle = 2 * Math.Acos(Math.Sqrt(surfaceDist*surfaceDist + meterDiameter*surfaceDist)/(meterDiameter/2 + surfaceDist));
             double scaleFactor = CalculateScalingFactor(maxDist, angle, meterDiameter);
             double doublediameter = scaleFactor * meterDiameter;
             diam = (float)doublediameter;
+            sphCoordsObj = new float[2];
+            Vector3D translatedInv = playerPos.Component3D - actorPos.Component3D;
+            double[] _ = SphericalCoordinates.Double.ConvertRectToSpherical(translatedInv);
+            sphCoordsObj[0] = (float)_[1];
+            sphCoordsObj[1] = (float)_[2];
+
             /*Debug.unityLogger.Log(
                 "meter diameter: " + meterDiameter + 
                 " meters, float scaled diameter: " + diam + 

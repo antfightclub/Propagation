@@ -58,14 +58,13 @@ namespace SpecialRelativity
         void LateUpdate()
         {
             planet.Position = new Vector4D(1.0d, posX, posY, posZ);
-            Actor.UpdateLogic(planet.Position, PlayerController.Instance.Player.Position, 2 * radius, MaxDist, out Vector3 drawnPos, out float diam, out double meterdist, out float[] sphCoords);
+            Actor.UpdateLogic(planet.Position, PlayerController.Instance.Player.Position, 2 * radius, MaxDist, out Vector3 drawnPos, out float diam, out double meterdist, out float[] sphCoords, out float[] sphCoordsObj);
             Debug.unityLogger.Log("The actual diameter of the object is " + Conversions.LightsecondsToMeters(2*radius) + " meters, and the distance between the player and the object's center is " + meterdist + " meters, and scaled diameter given as: " + diam + " when placed at: " + MaxDist + " meters from player");
             double H_wawa =  (meterdist - Conversions.LightsecondsToMeters(radius)) / Conversions.LightsecondsToMeters(radius);
             Debug.unityLogger.Log("With the actual radius in meters being " + Conversions.LightsecondsToMeters(radius) + " meters, the height above the surface of the object in terms of the object's radius is " + H_wawa);
-            float[] sph = new float[2];
-            sph[0] = sphCoords[1];
-            sph[1] = sphCoords[2];
-            DrawSphere(material, drawnPos, diam, sph, (float)H_wawa);
+            
+           
+            DrawSphere(material, drawnPos, diam, sphCoordsObj, (float)H_wawa);
         }
 
         private void OnDrawGizmos()
@@ -85,14 +84,14 @@ namespace SpecialRelativity
              * */
 
             float R = diam / 2;
-            float h = Mathf.Sqrt(maxDist * maxDist - R * R) * (R / maxDist);
-            float sinAngle = h / 300f;
+            float h = Mathf.Sqrt(H * H - R * R) * (R / H);
+            float sinAngle = h / H;
             float cosAngle = Mathf.Sqrt(1.0f  - sinAngle * sinAngle);
             float tanAngle = sinAngle / cosAngle;
             float quadScale = tanAngle * 300f * 2f;
             rp.material.SetFloat("_R", R);
-            rp.material.SetFloat("_Phi1", sph[1]);
-            rp.material.SetFloat("_Lambda0", sph[0]);
+            rp.material.SetFloat("_Phi1", -sph[0]);
+            rp.material.SetFloat("_Lambda0", -sph[1]);
             rp.material.SetFloat("_MaxDist", maxDist);
             rp.material.SetFloat("_H", H);
             float P = H / R + 1;
@@ -105,7 +104,7 @@ namespace SpecialRelativity
             float Q = R * (h/z);
             Debug.unityLogger.Log("R = " + R + ", h = " + h + ", z = " + z + ", Q = " + Q + ", quadScale = " + quadScale);
             Quaternion rot = Quaternion.LookRotation(pos) * Quaternion.Euler(0, 0, 90);
-            Matrix4x4 trans = Matrix4x4.TRS(pos, rot, new Vector3(2*quadScale, 2*quadScale, 2*quadScale));
+            Matrix4x4 trans = Matrix4x4.TRS(pos, rot, new Vector3(diam, diam, diam));
             //Graphics.DrawMesh(mesh, trans, material, 0);
             Graphics.RenderMesh(rp, mesh, 0, trans);
         }

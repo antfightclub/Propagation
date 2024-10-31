@@ -82,17 +82,17 @@ Material:
     - _EnableBlendModePreserveSpecularLighting: 1
     - _EnableFogOnTransparent: 1
     - _ExcludeFromTUAndAA: 0
-    - _H: 19.04525
+    - _H: 14.828799
     - _Lambda: 1.2915
-    - _Lambda0: 1.0552938
-    - _MapLim: 14.73929
+    - _Lambda0: -1.4578388
+    - _MapLim: 10.089088
     - _MaxDist: 300
     - _OpaqueCullMode: 2
-    - _P: 1.6339002
+    - _P: 1.7777151
     - _PerPixelSorting: 0
     - _Phi: 0.71559
-    - _Phi1: 3.0634127
-    - _R: 30.044556
+    - _Phi1: -1.136486
+    - _R: 19.067137
     - _ReceivesSSR: 1
     - _ReceivesSSRTransparent: 0
     - _RenderQueueType: 1

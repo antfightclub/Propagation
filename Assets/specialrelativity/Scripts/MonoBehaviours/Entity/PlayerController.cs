@@ -1,6 +1,6 @@
 using SpecialRelativity;
 using UnityEngine;
-using System.Collections.Generic;
+using System.Collections;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
@@ -114,6 +114,14 @@ public class PlayerController : MonoBehaviour
         Player.Position = new Vector4D(1.0d, this.x, this.y, this.z);
 
     }
+
+    private void OrbitEarth()
+    {
+        Vector3D origin = new Vector3D(0, 0, 0);
+        double dist = 0.1d;
+        Vector3D pos = new Vector3D(dist, 0, 0);
+    }
+
 
     private void OnDestroy()
     {
